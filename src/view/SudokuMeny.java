@@ -1,43 +1,62 @@
 package view;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.control.Button;
 
 public class SudokuMeny extends Application {
     @Override
     public void start(Stage stage) {
-        // Skapa en layout-container (VBox)
-        VBox root = new VBox();
+        // Create a layout-container (BorderPane)
+        BorderPane root = new BorderPane();
 
-        // Skapa knappar
+        // Create a VBox for the buttons
+        VBox buttonBox = new VBox(10); // 10 is the spacing between buttons
+        buttonBox.setAlignment(Pos.CENTER_LEFT);
+        buttonBox.setPadding(new Insets(20));
+
+        // Create buttons
         Button button1 = new Button("Check");
         Button button2 = new Button("Hint");
 
         button1.setOnAction(event -> {
-            // Här kan du ange koden som ska köras när knappen klickas
-            System.out.println("Knapp 1 klickades!");
+            System.out.println("Check button clicked!");
         });
+
         button2.setOnAction(event -> {
-            // Här kan du ange koden som ska köras när knappen klickas
-            System.out.println("Knapp 2 klickades!");
+            System.out.println("Hint button clicked!");
         });
 
-        // Lägg till knapparna i layouten
-        root.getChildren().addAll(button1, button2);
+        // Create an HBox for the "Hint" button with left padding
+        HBox hintBox = new HBox(10);
+        hintBox.setPadding(new Insets(0, 0, 0, 5));
+        hintBox.getChildren().add(button2);
 
-        // Skapa en scen och sätt layouten som dess rot
+        // Add buttons to the VBox
+        buttonBox.getChildren().add(button1);
+
+        // Add the HBox containing the "Hint" button to the VBox
+        buttonBox.getChildren().add(hintBox);
+
+        // Place the VBox in the center of the BorderPane
+        root.setCenter(buttonBox);
+
+        // Create a scene and set the layout as its root
         Scene scene = new Scene(root, 300, 200);
 
-        // Sätt scenen för scenen
+        // Set the scene for the stage
         stage.setScene(scene);
 
-        // Ange titeln för fönstret
+        // Set the window title
         stage.setTitle("JavaFX Button App");
 
-        // Visa fönstret
+        // Show the window
         stage.show();
     }
 
