@@ -6,6 +6,15 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SudokuMeny",
+            "request": "launch",
+            "mainClass": "view.SudokuMeny",
+            "projectName": "Laboration4_5a582165",
+            "vmArgs": "--module-path \"C:\\Program Files\\Java\\javafx-sdk-21\\lib\" --add-modules javafx.controls,javafx.fxml",
+            "args": ""
+        },
+        {
+            "type": "java",
             "name": "Canvastest",
             "request": "launch",
             "mainClass": "Canvastest",
