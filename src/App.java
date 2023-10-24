@@ -5,7 +5,7 @@ import javafx.scene.layout.BorderPane;
 import view.ButtonToolbar;
 import view.MenuBarComponent;
 
-public class Main extends Application {
+public class App extends Application {
     @Override
     public void start(Stage stage) {
         BorderPane root = new BorderPane();
