@@ -6,6 +6,16 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "Laboration4_5a582165",
+            "vmArgs": "--module-path \"C:\\Program Files\\Java\\javafx-sdk-21\\lib\" --add-modules javafx.controls,javafx.fxml",
+            "args": ""
+            
+        },
+        {
+            "type": "java",
             "name": "SudokuMeny",
             "request": "launch",
             "mainClass": "view.SudokuMeny",
