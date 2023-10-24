@@ -11,11 +11,18 @@ public class ButtonToolbar {
     public ButtonToolbar() {
         buttonToolbar = new VBox(10);
         buttonToolbar.setAlignment(Pos.CENTER_LEFT);
-        buttonToolbar.setPadding(new Insets(20, 0, 0, 0));
+        buttonToolbar.setPadding(new Insets(0, 0, 0, 20));
 
         // Create buttons
         Button button1 = new Button("Check");
         Button button2 = new Button("Hint");
+
+        button1.setOnAction(event -> {
+            System.out.println("Check button clicked!");
+        });
+        button2.setOnAction(event -> {
+            System.out.println("Hint button clicked!");
+        });
 
         // Add buttons to the VBox
         buttonToolbar.getChildren().addAll(button1, button2);
