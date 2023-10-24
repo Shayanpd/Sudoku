@@ -65,7 +65,7 @@ public class Gridview {
                 TilePane section = new TilePane();
                 section.setPrefColumns(SECTION_SIZE);
                 section.setPrefRows(SECTION_SIZE);
-                section.setStyle( "-fx-border-color: black; -fx-border-width: 0.3px;");
+                section.setStyle( "-fx-border-color: black; -fx-border-width: 1px;");
     
                 // add number tiles to this section
                 for (int row = 0; row < SECTION_SIZE; row++) {

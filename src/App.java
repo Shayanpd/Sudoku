@@ -3,9 +3,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
-import view.ButtonToolbar;
+import view.ButtonChoice;
 import view.Gridview;
 import view.MenuBarComponent;
+import view.ButtonToolbar;
 
 public class App extends Application {
     @Override
@@ -22,11 +23,13 @@ public class App extends Application {
 
         // Create the ButtonToolbar component
         ButtonToolbar buttonToolbar = new ButtonToolbar();
+        // Create the ButtonToolbar component
+        ButtonChoice buttonChoice = new ButtonChoice();
 
         // Set ButtonToolbar on the left and Gridview on the center
         root.setLeft(buttonToolbar.getButtonToolbar());
         root.setCenter(numberPane);
-
+        root.setRight(buttonChoice.getButtonChoice());
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
