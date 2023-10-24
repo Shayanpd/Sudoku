@@ -21,7 +21,7 @@ public class Main extends Application {
         Scene scene = new Scene(root, 400, 300);
 
         stage.setScene(scene);
-        stage.setTitle("Sudoku Application");
+        stage.setTitle("Sudoku");
         stage.show();
     }
 
