@@ -1,5 +1,6 @@
 package view;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
@@ -40,8 +41,7 @@ public class MenuBarComponent {
         exitMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // Define what should happen when "Exit" is selected
-                System.out.println("Exit menu item selected");
+                Platform.exit();
             }
         });
 
