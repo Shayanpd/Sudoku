@@ -23,7 +23,25 @@ public class Gridview {
         numberPane = makeNumberPane();
         // ...
     }
-    
+    private EventHandler<MouseEvent> tileClickHandler = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+            Label clickedTile = (Label) event.getSource();
+            
+            // Iterate through the numberTiles array to find the clicked tile's position
+            for (int row = 0; row < GRID_SIZE; row++) {
+                for (int col = 0; col < GRID_SIZE; col++) {
+                    if (clickedTile == numberTiles[row][col]) {
+                        // You have the row and column of the clicked tile
+                        // Now you can perform any action you want
+                        // For example, print the row and column to the console
+                        System.out.println("Clicked on tile at Row: " + row + " Column: " + col);
+                        return; // Exit the loop once found
+                    }
+                }
+            }
+        }
+    };
     // use this method to get a reference to the number (called by some other class)
     public TilePane getNumberPane() {
         return numberPane;
@@ -41,8 +59,7 @@ public class Gridview {
                 tile.setFont(font);
                 tile.setAlignment(Pos.CENTER);
                 tile.setStyle("-fx-border-color: black; -fx-border-width: 0.5px;"); // css style
-                //EventHandler<? super MouseEvent> tileClickHandler;
-                //tile.setOnMouseClicked(tileClickHandler); // add your custom event handler
+                tile.setOnMouseClicked(tileClickHandler); // add your custom event handler
                 // add new tile to grid
                 numberTiles[row][col] = tile;
             }
@@ -65,7 +82,7 @@ public class Gridview {
                 TilePane section = new TilePane();
                 section.setPrefColumns(SECTION_SIZE);
                 section.setPrefRows(SECTION_SIZE);
-                section.setStyle( "-fx-border-color: black; -fx-border-width: 1px;");
+                section.setStyle( "-fx-border-color: black; -fx-border-width: 1.0px;");
     
                 // add number tiles to this section
                 for (int row = 0; row < SECTION_SIZE; row++) {
