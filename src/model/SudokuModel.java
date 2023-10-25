@@ -17,11 +17,19 @@ public class SudokuModel {
     public Tile getTile(int row, int col) {
         return grid[row][col];
     }
+    public void setTileValue(int row, int col, int value)
+    {
+        grid[row][col].setValue(value);
+    }
+    public void clearTile(int row, int col)
+    {
+        grid[row][col].setValue(0);
+    }
     public static int getSelectedNumber()
     {
         return selectedNumber;
     }
-public static void setSelectedNumber(int choice)
+    public static void setSelectedNumber(int choice)
     {
         selectedNumber = choice;
     }
