@@ -10,6 +10,8 @@ import javafx.scene.text.FontWeight;
 import model.SudokuModel;
 import util.SudokuUtilities;
 
+import static util.SudokuUtilities.generateSudokuMatrix;
+
 public class Gridview {
     private static final int GRID_SIZE = SudokuUtilities.GRID_SIZE;
     private static final int SECTIONS_PER_ROW = SudokuUtilities.SECTIONS_PER_ROW;

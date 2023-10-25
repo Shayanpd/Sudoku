@@ -53,6 +53,14 @@ public class MenuBarComponent {
 
         // Create items for the "Game" menu
         MenuItem newGameMenuItem = new MenuItem("New Game");
+
+        newGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                // Define what should happen when "Save" is selected
+                System.out.println("New Game menu item selected");
+            }
+        });
         //lägg till svårighetsgradsval
 
         // Add items to the "Game" menu
