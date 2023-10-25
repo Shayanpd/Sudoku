@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import model.SudokuModel;
 import util.SudokuUtilities;
 
 public class Gridview {
@@ -36,6 +37,7 @@ public class Gridview {
                         // Now you can perform any action you want
                         // For example, print the row and column to the console
                         System.out.println("Clicked on tile at Row: " + row + " Column: " + col);
+                        numberTiles[row][col].setText(String.valueOf(SudokuModel.getSelectedNumber()));// byt detta till nån funktion som kollar igenom main 2d arrayen. Måste kolla om det går att ändra numret först.
                         return; // Exit the loop once found
                     }
                 }

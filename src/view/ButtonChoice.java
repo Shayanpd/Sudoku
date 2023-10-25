@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import model.SudokuModel;
 
 public class ButtonChoice {
     private VBox buttonChoice;
@@ -27,15 +28,19 @@ public class ButtonChoice {
 
         button1.setOnAction(event -> {
             System.out.println("1 button clicked!");
+            SudokuModel.setSelectedNumber(1);
         });
         button2.setOnAction(event -> {
             System.out.println("2 button clicked!");
+            SudokuModel.setSelectedNumber(2);
         });
         button3.setOnAction(event -> {
             System.out.println("3 button clicked!");
+            SudokuModel.setSelectedNumber(3);
         });
         button4.setOnAction(event -> {
             System.out.println("4 button clicked!");
+            SudokuModel.setSelectedNumber(4);
         }); 
         button5.setOnAction(event -> {
             System.out.println("5 button clicked!");
