@@ -29,7 +29,7 @@ public class Tile {
         this.isEditable = isEditable;
     }
     public void clearValue() {
-        this.value = 0;
+        this.currentValue = 0;
     }
     public boolean isFilled() {
         return currentValue != 0;
