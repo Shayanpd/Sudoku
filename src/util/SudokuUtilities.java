@@ -76,7 +76,7 @@ public class SudokuUtilities {
     }
 
     private static final String easy =
-            "000914070" +
+            "000914070" + // 0 så printas "" annars printas 9,1,4 etc. Sparas i e
                     "010000054" +
                     "040002000" +
                     "007569001" +
