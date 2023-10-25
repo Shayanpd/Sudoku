@@ -19,14 +19,26 @@ public class Gridview {
     private Label[][] numberTiles; // the tiles/squares to show in the ui grid
     private TilePane numberPane;
     private SudokuModel sudokuModel;
+    private SudokuController controller;
+    
     
     public Gridview() {
         numberTiles = new Label[GRID_SIZE][GRID_SIZE];
         sudokuModel = new SudokuModel();
+        controller = new SudokuController(sudokuModel, this);
         initNumberTiles();
         // ...
         numberPane = makeNumberPane();
         // ...
+    }
+    public void updateTile(int row, int col, int value) {
+        sudokuModel.getTile(row, col).setValue(value);
+        numberTiles[row][col].setText(String.valueOf(value));
+    }
+
+    public void clearTile(int row, int col) {
+        sudokuModel.getTile(row, col).clearValue();
+        numberTiles[row][col].setText("");
     }
     private EventHandler<MouseEvent> tileClickHandler = new EventHandler<MouseEvent>() {
         @Override
@@ -41,15 +53,9 @@ public class Gridview {
                         // Now you can perform any action you want
                         // For example, print the row and column to the console
                         System.out.println("Clicked on tile at Row: " + row + " Column: " + col);
-                        if(SudokuModel.getSelectedNumber() > 9 || SudokuModel.getSelectedNumber() < 1)
-                        {
-                            sudokuModel.clearTile(row,col);
-                            numberTiles[row][col].setText("");
-                        }
-                        else
-                        { // byt detta till nån funktion som kollar igenom main 2d arrayen. Måste kolla om det går att ändra numret först.
-                            numberTiles[row][col].setText(String.valueOf(SudokuModel.getSelectedNumber()));
-                        }
+
+                        // Handle the click in the controller
+                        controller.handleTileClick(row, col);
                         return; // Exit the loop once found
                     }
                 }

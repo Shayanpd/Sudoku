@@ -6,6 +6,7 @@ public class SudokuModel {
 
     public SudokuModel() {
         // Initialize the grid and create Tile objects
+        selectedNumber = 0;
         grid = new Tile[9][9];
         for (int row = 0; row < 9; row++) {
             for (int col = 0; col < 9; col++) {
