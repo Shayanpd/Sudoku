@@ -18,9 +18,11 @@ public class Gridview {
     private static final int SECTION_SIZE = SudokuUtilities.SECTION_SIZE;
     private Label[][] numberTiles; // the tiles/squares to show in the ui grid
     private TilePane numberPane;
+    private SudokuModel sudokuModel;
     
     public Gridview() {
         numberTiles = new Label[GRID_SIZE][GRID_SIZE];
+        sudokuModel = new SudokuModel();
         initNumberTiles();
         // ...
         numberPane = makeNumberPane();
@@ -41,6 +43,7 @@ public class Gridview {
                         System.out.println("Clicked on tile at Row: " + row + " Column: " + col);
                         if(SudokuModel.getSelectedNumber() > 9 || SudokuModel.getSelectedNumber() < 1)
                         {
+                            sudokuModel.clearTile(row,col);
                             numberTiles[row][col].setText("");
                         }
                         else
