@@ -7,6 +7,11 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class MenuBarComponent {
     private MenuBar menuBar;
@@ -95,6 +100,18 @@ public class MenuBarComponent {
         MenuItem checkMenuItem = new MenuItem("Check");
         MenuItem aboutMenuItem = new MenuItem("About");
         MenuItem hintMenuItem = new MenuItem("Hint");
+
+        PopupMenu aboutPopupMenu = new PopupMenu("About");
+        aboutPopupMenu.add("hello");
+
+        JFrame aboutPopupMenuJFrame = new JFrame("Sudoku Rules");
+        aboutPopupMenuJFrame.setLayout(new GridLayout(5, 1));
+        aboutMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                aboutPopupMenu.show(aboutPopupMenuJFrame,0, 0);
+            }
+        });
 
         // Add items to the "Help" menu
         helpMenu.getItems().addAll(clearSpacesMenuItem, checkMenuItem, aboutMenuItem, hintMenuItem);
