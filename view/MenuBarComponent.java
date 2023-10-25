@@ -18,11 +18,11 @@ public class MenuBarComponent {
         Menu fileMenu = new Menu("File");
 
         // Create items for the "File" menu
-        MenuItem openMenuItem = new MenuItem("Open");
-        MenuItem saveMenuItem = new MenuItem("Save");
+        MenuItem loadGameMenuItem = new MenuItem("Load Game");
+        MenuItem saveGameMenuItem = new MenuItem("Save Game");
         MenuItem exitMenuItem = new MenuItem("Exit");
 
-        openMenuItem.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
+        loadGameMenuItem.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 // Define what should happen when "Open" is selected
@@ -30,7 +30,7 @@ public class MenuBarComponent {
             }
         });
 
-        saveMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+        saveGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 // Define what should happen when "Save" is selected
@@ -46,25 +46,38 @@ public class MenuBarComponent {
         });
 
         // Add items to the "File" menu
-        fileMenu.getItems().addAll(openMenuItem, saveMenuItem, new SeparatorMenuItem(), exitMenuItem);
+        fileMenu.getItems().addAll(loadGameMenuItem, saveGameMenuItem, new SeparatorMenuItem(), exitMenuItem);
 
         // Create the "Game" menu
         Menu gameMenu = new Menu("Game");
 
         // Create items for the "Game" menu
-        MenuItem newGameMenuItem = new MenuItem("New Game");
+        Menu newGameMenu = new Menu("New Game");
 
-        newGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+
+
+        MenuItem easyNewGame = new MenuItem("Easy game");
+        MenuItem mediumNewGame = new MenuItem("Medium game");
+        MenuItem hardNewGame = new MenuItem("Hard game");
+
+        newGameMenu.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 // Define what should happen when "Save" is selected
                 System.out.println("New Game menu item selected");
+
             }
         });
         //lägg till svårighetsgradsval
 
         // Add items to the "Game" menu
-        gameMenu.getItems().add(newGameMenuItem);
+        gameMenu.getItems().add(newGameMenu);
+
+        // Add items to the "newGame" menu
+        newGameMenu.getItems().add(easyNewGame);
+        newGameMenu.getItems().add(mediumNewGame);
+        newGameMenu.getItems().add(hardNewGame);
+
 
         // Create the "Help" menu
         Menu helpMenu = new Menu("Help");
@@ -78,10 +91,13 @@ public class MenuBarComponent {
         });
 
         // Create items for the "Help" menu
+        MenuItem clearSpacesMenuItem = new MenuItem("Clear spaces");
+        MenuItem checkMenuItem = new MenuItem("Check");
         MenuItem aboutMenuItem = new MenuItem("About");
+        MenuItem hintMenuItem = new MenuItem("Hint");
 
         // Add items to the "Help" menu
-        helpMenu.getItems().add(aboutMenuItem);
+        helpMenu.getItems().addAll(clearSpacesMenuItem, checkMenuItem, aboutMenuItem, hintMenuItem);
 
         // Add menus to the MenuBar
         menuBar.getMenus().addAll(fileMenu, gameMenu, helpMenu);
