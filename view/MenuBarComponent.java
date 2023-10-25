@@ -105,12 +105,17 @@ public class MenuBarComponent {
         aboutPopupMenu.add("hello");
 
         JFrame aboutPopupMenuJFrame = new JFrame("Sudoku Rules");
-        aboutPopupMenuJFrame.setLayout(new GridLayout(5, 1));
+
+
         aboutMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                aboutPopupMenu.show(aboutPopupMenuJFrame,0, 0);
+                aboutPopupMenuJFrame.setLayout(new GridLayout(5, 5));
+                aboutPopupMenu.addSeparator();
+                aboutPopupMenuJFrame.setSize(200, 200);
+                aboutPopupMenuJFrame.setVisible(true);
             }
+
         });
 
         // Add items to the "Help" menu
