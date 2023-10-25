@@ -129,6 +129,14 @@ public class MenuBarComponent {
             }
 
         });
+        clearSpacesMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                System.out.println("Clear spaces clicked");
+
+            }
+
+        });
 
         // Add items to the "Help" menu
         helpMenu.getItems().addAll(clearSpacesMenuItem, checkMenuItem, aboutMenuItem);
@@ -141,13 +149,14 @@ public class MenuBarComponent {
         Stage aboutStage = new Stage();
         aboutStage.setTitle("Sudoku Rules");
 
-        Text aboutText = new Text("Sudoku grid consists of 9x9 spaces.\n" +
-                "You can use only numbers from 1 to 9.\n" +
-                "Each 3×3 block can only contain numbers from 1 to 9.\n" +
-                "Each vertical column can only contain numbers from 1 to 9.\n" +
-                "Each horizontal row can only contain numbers from 1 to 9.\n" +
-                "Each number in the 3×3 block, vertical column or horizontal row can be used only once.\n" +
-                "The game is over when the whole Sudoku grid is correctly filled with numbers.");
+        Text aboutText = new Text("""
+                Sudoku grid consists of 9x9 spaces.
+                You can use only numbers from 1 to 9.
+                Each 3×3 block can only contain numbers from 1 to 9.
+                Each vertical column can only contain numbers from 1 to 9.
+                Each horizontal row can only contain numbers from 1 to 9.
+                Each number in the 3×3 block, vertical column or horizontal row can be used only once.
+                The game is over when the whole Sudoku grid is correctly filled with numbers.""");
 
         VBox aboutLayout = new VBox();
         aboutLayout.getChildren().add(aboutText);
