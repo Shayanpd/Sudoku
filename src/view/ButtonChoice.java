@@ -1,5 +1,7 @@
 package view;
 
+import javax.lang.model.type.NullType;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -44,21 +46,27 @@ public class ButtonChoice {
         }); 
         button5.setOnAction(event -> {
             System.out.println("5 button clicked!");
+            SudokuModel.setSelectedNumber(5);
         });
         button6.setOnAction(event -> {
             System.out.println("6 button clicked!");
+            SudokuModel.setSelectedNumber(6);
         });
         button7.setOnAction(event -> {
             System.out.println("7 button clicked!");
+            SudokuModel.setSelectedNumber(7);
         });
         button8.setOnAction(event -> {
             System.out.println("8 button clicked!");
+            SudokuModel.setSelectedNumber(8);
         });
         button9.setOnAction(event -> {
             System.out.println("9 button clicked!");
+            SudokuModel.setSelectedNumber(9);
         });
         buttonC.setOnAction(event -> {
             System.out.println("C button clicked!");
+            SudokuModel.setSelectedNumber(0);
         });
 
         // Add buttons to the VBox

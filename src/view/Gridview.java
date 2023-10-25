@@ -37,7 +37,14 @@ public class Gridview {
                         // Now you can perform any action you want
                         // For example, print the row and column to the console
                         System.out.println("Clicked on tile at Row: " + row + " Column: " + col);
-                        numberTiles[row][col].setText(String.valueOf(SudokuModel.getSelectedNumber()));// byt detta till nån funktion som kollar igenom main 2d arrayen. Måste kolla om det går att ändra numret först.
+                        if(SudokuModel.getSelectedNumber() > 9 || SudokuModel.getSelectedNumber() < 1)
+                        {
+                            numberTiles[row][col].setText("");
+                        }
+                        else
+                        { // byt detta till nån funktion som kollar igenom main 2d arrayen. Måste kolla om det går att ändra numret först.
+                            numberTiles[row][col].setText(String.valueOf(SudokuModel.getSelectedNumber()));
+                        }
                         return; // Exit the loop once found
                     }
                 }
