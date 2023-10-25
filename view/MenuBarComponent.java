@@ -11,9 +11,11 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import util.SudokuUtilities;
 
 import javax.swing.*;
-import java.awt.*;
+import java.io.File;
+
 
 public class MenuBarComponent {
     private MenuBar menuBar;
@@ -42,6 +44,15 @@ public class MenuBarComponent {
             public void handle(ActionEvent event) {
                 // Define what should happen when "Save" is selected
                 System.out.println("Save menu item selected");
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setCurrentDirectory(new File("."));
+
+                int response = fileChooser.showSaveDialog(null);
+
+                if (response == JFileChooser.APPROVE_OPTION){
+                    File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+
+                }
             }
         });
 
@@ -60,30 +71,39 @@ public class MenuBarComponent {
 
         // Create items for the "Game" menu
         Menu newGameMenu = new Menu("New Game");
+        MenuItem easyNewGameMenuItem = new MenuItem("Easy game");
+        MenuItem mediumNewGameMenuItem = new MenuItem("Medium game");
+        MenuItem hardNewGameMenuItem = new MenuItem("Hard game");
 
-
-
-        MenuItem easyNewGame = new MenuItem("Easy game");
-        MenuItem mediumNewGame = new MenuItem("Medium game");
-        MenuItem hardNewGame = new MenuItem("Hard game");
-
-        newGameMenu.setOnAction(new EventHandler<ActionEvent>() {
+        easyNewGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 // Define what should happen when "Save" is selected
-                System.out.println("New Game menu item selected");
-
+                System.out.println("New Easy Game menu item selected");
             }
         });
-        //lägg till svårighetsgradsval
+        mediumNewGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                // Define what should happen when "Save" is selected
+                System.out.println("New Medium Game menu item selected");
+            }
+        });
+        hardNewGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                // Define what should happen when "Save" is selected
+                System.out.println("New Hard Game menu item selected");
+            }
+        });
 
         // Add items to the "Game" menu
         gameMenu.getItems().add(newGameMenu);
 
         // Add items to the "newGame" menu
-        newGameMenu.getItems().add(easyNewGame);
-        newGameMenu.getItems().add(mediumNewGame);
-        newGameMenu.getItems().add(hardNewGame);
+        newGameMenu.getItems().add(easyNewGameMenuItem);
+        newGameMenu.getItems().add(mediumNewGameMenuItem);
+        newGameMenu.getItems().add(hardNewGameMenuItem);
 
 
         // Create the "Help" menu
@@ -101,8 +121,6 @@ public class MenuBarComponent {
         MenuItem clearSpacesMenuItem = new MenuItem("Clear spaces");
         MenuItem checkMenuItem = new MenuItem("Check");
         MenuItem aboutMenuItem = new MenuItem("About");
-        MenuItem hintMenuItem = new MenuItem("Hint");
-
 
         aboutMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -112,9 +130,8 @@ public class MenuBarComponent {
 
         });
 
-
         // Add items to the "Help" menu
-        helpMenu.getItems().addAll(clearSpacesMenuItem, checkMenuItem, aboutMenuItem, hintMenuItem);
+        helpMenu.getItems().addAll(clearSpacesMenuItem, checkMenuItem, aboutMenuItem);
 
         // Add menus to the MenuBar
         menuBar.getMenus().addAll(fileMenu, gameMenu, helpMenu);
