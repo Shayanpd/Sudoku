@@ -28,7 +28,9 @@ public class Tile {
     public void setEditable(boolean isEditable) {
         this.isEditable = isEditable;
     }
-    
+    public void clearValue() {
+        this.value = 0;
+    }
     public boolean isFilled() {
         return currentValue != 0;
     }
