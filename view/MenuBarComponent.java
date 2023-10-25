@@ -7,8 +7,10 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import javax.swing.*;
 import java.awt.*;
@@ -101,28 +103,42 @@ public class MenuBarComponent {
         MenuItem aboutMenuItem = new MenuItem("About");
         MenuItem hintMenuItem = new MenuItem("Hint");
 
-        PopupMenu aboutPopupMenu = new PopupMenu("About");
-        aboutPopupMenu.add("hello");
-
-        JFrame aboutPopupMenuJFrame = new JFrame("Sudoku Rules");
-
 
         aboutMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                aboutPopupMenuJFrame.setLayout(new GridLayout(5, 5));
-                aboutPopupMenu.addSeparator();
-                aboutPopupMenuJFrame.setSize(200, 200);
-                aboutPopupMenuJFrame.setVisible(true);
+                showAboutPopup();
             }
 
         });
+
 
         // Add items to the "Help" menu
         helpMenu.getItems().addAll(clearSpacesMenuItem, checkMenuItem, aboutMenuItem, hintMenuItem);
 
         // Add menus to the MenuBar
         menuBar.getMenus().addAll(fileMenu, gameMenu, helpMenu);
+    }
+
+    private void showAboutPopup() {
+        Stage aboutStage = new Stage();
+        aboutStage.setTitle("Sudoku Rules");
+
+        Text aboutText = new Text("Sudoku grid consists of 9x9 spaces.\n" +
+                "You can use only numbers from 1 to 9.\n" +
+                "Each 3×3 block can only contain numbers from 1 to 9.\n" +
+                "Each vertical column can only contain numbers from 1 to 9.\n" +
+                "Each horizontal row can only contain numbers from 1 to 9.\n" +
+                "Each number in the 3×3 block, vertical column or horizontal row can be used only once.\n" +
+                "The game is over when the whole Sudoku grid is correctly filled with numbers.");
+
+        VBox aboutLayout = new VBox();
+        aboutLayout.getChildren().add(aboutText);
+
+        Scene scene = new Scene(aboutLayout, 465, 120);
+        aboutStage.setScene(scene);
+
+        aboutStage.show();
     }
 
     public MenuBar getMenuBar() {
