@@ -36,6 +36,21 @@ public class MenuBarComponent {
             public void handle(ActionEvent event) {
                 // Define what should happen when "Open" is selected
                 System.out.println("Open menu item selected");
+
+                // Hampus Note:
+                // 1. Ensure that util.SudokuFileIO is imported
+                // 2. Choose the file just like in the saveGameMenuItem
+                // 3. Reassign the model (you'll need to have it available in
+                //    here somehow! you could pass it as a parameter to this
+                //    class via the constructor - you will need this for the
+                //    saveGameMenuItem as well) to the return value of
+                //    SudokuFileIO.deSerializeFromFile(file)
+                // 4. Update the view to reflect the new model, i.e. by having a
+                //    method to setModel in the view and calling it here
+                // 5. Also, be sure to have an `renderFromModel` method (or
+                //    similar) in the view - that will allow you to make updates
+                //    via the controller, or in here, to the model, and then
+                //    update the view to reflect the changes
             }
         });
 
@@ -51,7 +66,18 @@ public class MenuBarComponent {
 
                 if (response == JFileChooser.APPROVE_OPTION){
                     File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
-
+                    // Hampus Note:
+                    // 1. Ensure that util.SudokuFileIO is imported
+                    // 2. Call SudokuFileIO.serializeToFile(file, model);
+                    // 3. Handle any errors that might occur gracefully (e.g.
+                    //    show a popup)
+                    // Example:
+                    // try {
+                    //     SudokuFileIO.serializeToFile(new File(path), model);
+                    //     this.view.showSavedAlert();
+                    // } catch (RuntimeException e) {
+                    //     this.view.showErrorAlert("Unknown error occurred while saving file.");
+                    // }
                 }
             }
         });
