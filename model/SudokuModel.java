@@ -37,7 +37,10 @@ public class SudokuModel implements Serializable{
     }
     public void clearTile(int row, int col)
     {
-        grid[row][col].setValue(0);
+        if(getTile(row,col).isEditable())
+        {
+            grid[row][col].setValue(0);
+        }
     }
     public static int getSelectedNumber()
     {

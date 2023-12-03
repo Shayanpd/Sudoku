@@ -34,7 +34,14 @@ public class Gridview {
     }
 
     public void updateGridTile(int row, int col, int value) {
+        if(value >= 1 && value <= 9 )
+        {
         numberTiles[row][col].setText(String.valueOf(value));
+        }
+        else
+        {
+            clearTile(row, col);
+        }
     }
 
     public void clearTile(int row, int col) {
@@ -147,5 +154,9 @@ public class Gridview {
         //if model level is initialized then clear cells
         //initialize level
         //update from model.   (Gridview.updateFromModel();)
+    }
+    public SudokuController getController()
+    {
+        return controller;
     }
 }

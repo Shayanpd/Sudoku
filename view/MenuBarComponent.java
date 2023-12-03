@@ -77,6 +77,7 @@ public class MenuBarComponent {
                     File file = fileChooser.getSelectedFile();
                     SudokuModel model = SudokuFileIO.deSerializeFromFile(file);
                     gridview.newModel(model);
+                    gridview.getController().setModel(model);
                     gridview.updateViewModel();
                 } else {
                     System.out.println("File selection cancelled.");
@@ -99,8 +100,8 @@ public class MenuBarComponent {
                     File file = fileChooser.getSelectedFile(); // Get the selected file
                     try {
                         // Ensure sudokuModel is not null before attempting to save
-                        if (sudokuModel != null) {
-                            SudokuFileIO.serializeToFile(file, sudokuModel);
+                        if (gridview.getModel() != null) {
+                            SudokuFileIO.serializeToFile(file, gridview.getModel());
                             // Optionally show a success message
                         } else {
                             // Handle the case where sudokuModel is null

@@ -8,8 +8,8 @@ public class Tile implements Serializable{
 
     public Tile(){
         // Initialize the tile with no value and as editable
-        currentValue = 0;
-        isEditable = true;
+        this.currentValue = 0;
+        this.isEditable = true;
     }
 
     public int getValue() {
