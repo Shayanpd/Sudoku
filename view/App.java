@@ -3,6 +3,7 @@ package view;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.SudokuModel;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import view.ButtonChoice;
@@ -13,15 +14,18 @@ import view.ButtonToolbar;
 public class App extends Application {
     @Override
     public void start(Stage stage) {
+        SudokuModel sudokuModel = new SudokuModel();
+
+        // Create the Gridview
+        Gridview gridView = new Gridview(sudokuModel);
+        TilePane numberPane = gridView.getNumberPane();
+
         BorderPane root = new BorderPane();
 
         // Create the MenuBar component
-        MenuBarComponent menuBarComponent = new MenuBarComponent();
+        MenuBarComponent menuBarComponent = new MenuBarComponent(gridView, sudokuModel);
         root.setTop(menuBarComponent.getMenuBar());
 
-        // Create the Gridview
-        Gridview gridView = new Gridview();
-        TilePane numberPane = gridView.getNumberPane();
 
         // Create the ButtonToolbar component
         ButtonToolbar buttonToolbar = new ButtonToolbar();
