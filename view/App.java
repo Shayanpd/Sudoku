@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
+import util.SudokuUtilities;
 import view.ButtonChoice;
 import view.Gridview;
 import view.MenuBarComponent;
@@ -20,7 +21,7 @@ public class App extends Application {
         root.setTop(menuBarComponent.getMenuBar());
 
         // Create the Gridview
-        Gridview gridView = new Gridview();
+        Gridview gridView = new Gridview(SudokuUtilities.SudokuLevel.EASY); // TODO: 10/29/2023 temporary - creates easy game on startup
         TilePane numberPane = gridView.getNumberPane();
 
         // Create the ButtonToolbar component

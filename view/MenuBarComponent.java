@@ -20,6 +20,22 @@ import java.io.File;
 public class MenuBarComponent {
     private MenuBar menuBar;
 
+    /*
+    private void replaceSudokuGrid(SudokuUtilities.SudokuLevel level) {
+        // Remove the existing Sudoku grid or any related components from the layout
+        // For example, if 'numberPane' is your Sudoku grid view, you can do:
+        root.getChildren().remove(numberPane);
+
+        // Create a new Sudoku grid view
+        Gridview newGridView = new Gridview(level);
+        TilePane newNumberPane = newGridView.getNumberPane();
+
+        // Set the new Sudoku grid in the 'center' of the BorderPane
+        root.setCenter(newNumberPane);
+    }
+
+     */
+
     public MenuBarComponent() {
         menuBar = new MenuBar();
 
@@ -80,6 +96,7 @@ public class MenuBarComponent {
             public void handle(ActionEvent event) {
                 // Define what should happen when "Save" is selected
                 System.out.println("New Easy Game menu item selected");
+                //replaceSudokuGrid(SudokuUtilities.SudokuLevel.EASY);
             }
         });
         mediumNewGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
@@ -87,6 +104,7 @@ public class MenuBarComponent {
             public void handle(ActionEvent event) {
                 // Define what should happen when "Save" is selected
                 System.out.println("New Medium Game menu item selected");
+                //replaceSudokuGrid(SudokuUtilities.SudokuLevel.MEDIUM);
             }
         });
         hardNewGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
@@ -94,6 +112,7 @@ public class MenuBarComponent {
             public void handle(ActionEvent event) {
                 // Define what should happen when "Save" is selected
                 System.out.println("New Hard Game menu item selected");
+                //replaceSudokuGrid(SudokuUtilities.SudokuLevel.HARD);
             }
         });
 

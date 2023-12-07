@@ -22,9 +22,9 @@ public class Gridview {
     private SudokuController controller;
     
     
-    public Gridview() {
+    public Gridview(SudokuUtilities.SudokuLevel level) {
         numberTiles = new Label[GRID_SIZE][GRID_SIZE];
-        sudokuModel = new SudokuModel();
+        sudokuModel = new SudokuModel(level);
         controller = new SudokuController(sudokuModel, this);
         initNumberTiles();
         // ...
@@ -73,7 +73,7 @@ public class Gridview {
     
         for (int row = 0; row < GRID_SIZE; row++) {
             for (int col = 0; col < GRID_SIZE; col++) {
-                Label tile = new Label(/* add number, or "", to display */); // data from model
+                Label tile = new Label(Integer.toString(sudokuModel.getTile(row, col).getValue())); // Assuming getValue method in your model
                 tile.setPrefWidth(32);
                 tile.setPrefHeight(32);
                 tile.setFont(font);
