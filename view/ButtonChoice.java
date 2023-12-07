@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import model.SudokuModel;
+import view.SudokuController;
 
 public class ButtonChoice {
     private VBox buttonChoice;
@@ -28,43 +29,43 @@ public class ButtonChoice {
 
         button1.setOnAction(event -> {
             System.out.println("1 button clicked!");
-            SudokuModel.setSelectedNumber(1);
+            SudokuController.selectedNumber = 1;
         });
         button2.setOnAction(event -> {
             System.out.println("2 button clicked!");
-            SudokuModel.setSelectedNumber(2);
+            SudokuController.selectedNumber = 2;
         });
         button3.setOnAction(event -> {
             System.out.println("3 button clicked!");
-            SudokuModel.setSelectedNumber(3);
+            SudokuController.selectedNumber = 3;
         });
         button4.setOnAction(event -> {
             System.out.println("4 button clicked!");
-            SudokuModel.setSelectedNumber(4);
+            SudokuController.selectedNumber = 4;
         }); 
         button5.setOnAction(event -> {
             System.out.println("5 button clicked!");
-            SudokuModel.setSelectedNumber(5);
+            SudokuController.selectedNumber = 5;
         });
         button6.setOnAction(event -> {
             System.out.println("6 button clicked!");
-            SudokuModel.setSelectedNumber(6);
+            SudokuController.selectedNumber = 6;
         });
         button7.setOnAction(event -> {
             System.out.println("7 button clicked!");
-            SudokuModel.setSelectedNumber(7);
+            SudokuController.selectedNumber = 7;
         });
         button8.setOnAction(event -> {
             System.out.println("8 button clicked!");
-            SudokuModel.setSelectedNumber(8);
+            SudokuController.selectedNumber = 8;
         });
         button9.setOnAction(event -> {
             System.out.println("9 button clicked!");
-            SudokuModel.setSelectedNumber(9);
+            SudokuController.selectedNumber = 9;
         });
         buttonC.setOnAction(event -> {
             System.out.println("C button clicked!");
-            SudokuModel.setSelectedNumber(0);
+            SudokuController.selectedNumber = 0;
         });
 
         // Add buttons to the VBox

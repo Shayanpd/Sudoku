@@ -8,10 +8,12 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.Stage;
+import model.SudokuModel;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import util.SudokuUtilities;
+import util.SudokuFileIO;
 
 import javax.swing.*;
 import java.io.File;
@@ -19,25 +21,16 @@ import java.io.File;
 
 public class MenuBarComponent {
     private MenuBar menuBar;
+    private SudokuModel sudokuModel;
+    private Gridview gridview;
+    protected String path;
+    private JFileChooser fileChooser = new JFileChooser();
 
-    /*
-    private void replaceSudokuGrid(SudokuUtilities.SudokuLevel level) {
-        // Remove the existing Sudoku grid or any related components from the layout
-        // For example, if 'numberPane' is your Sudoku grid view, you can do:
-        root.getChildren().remove(numberPane);
-
-        // Create a new Sudoku grid view
-        Gridview newGridView = new Gridview(level);
-        TilePane newNumberPane = newGridView.getNumberPane();
-
-        // Set the new Sudoku grid in the 'center' of the BorderPane
-        root.setCenter(newNumberPane);
-    }
-
-     */
-
-    public MenuBarComponent() {
+    public MenuBarComponent(Gridview gridview, SudokuModel sudokuModel) {
         menuBar = new MenuBar();
+        this.gridview = gridview;
+        this.sudokuModel = sudokuModel;
+
 
         // Create the "File" menu
         Menu fileMenu = new Menu("File");
@@ -46,31 +39,85 @@ public class MenuBarComponent {
         MenuItem loadGameMenuItem = new MenuItem("Load Game");
         MenuItem saveGameMenuItem = new MenuItem("Save Game");
         MenuItem exitMenuItem = new MenuItem("Exit");
+        MenuItem printArray = new MenuItem("Print");
 
-        loadGameMenuItem.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
+        /*loadGameMenuItem.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 // Define what should happen when "Open" is selected
                 System.out.println("Open menu item selected");
+                JFileChooser fileChooser = new JFileChooser();
+                File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+                SudokuFileIO.deSerializeFromFile(file);
+                gridview.updateTiles();
+
+                // Hampus Note:
+                // 1. Ensure that util.SudokuFileIO is imported
+                // 2. Choose the file just like in the saveGameMenuItem
+                // 3. Reassign the model (you'll need to have it available in
+                //    here somehow! you could pass it as a parameter to this
+                //    class via the constructor - you will need this for the
+                //    saveGameMenuItem as well) to the return value of
+                //    SudokuFileIO.deSerializeFromFile(file)
+                // 4. Update the view to reflect the new model, i.e. by having a
+                //    method to setModel in the view and calling it here
+                // 5. Also, be sure to have an `renderFromModel` method (or
+                //    similar) in the view - that will allow you to make updates
+                //    via the controller, or in here, to the model, and then
+                //    update the view to reflect the changes
             }
+        });*/
+        loadGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                int result = fileChooser.showOpenDialog(null); // Declare and initialize result here
+
+                // Inside your event handler
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    SudokuModel model = SudokuFileIO.deSerializeFromFile(file);
+                    gridview.newModel(model);
+                    gridview.getController().setModel(model);
+                    gridview.updateViewModel();
+                } else {
+                    System.out.println("File selection cancelled.");
+                }
+
+
+                }
+
         });
+
 
         saveGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // Define what should happen when "Save" is selected
                 System.out.println("Save menu item selected");
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setCurrentDirectory(new File("."));
 
-                int response = fileChooser.showSaveDialog(null);
+                int response = fileChooser.showSaveDialog(null); // Show the save dialog
 
-                if (response == JFileChooser.APPROVE_OPTION){
-                    File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
-
+                if (response == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile(); // Get the selected file
+                    try {
+                        // Ensure sudokuModel is not null before attempting to save
+                        if (gridview.getModel() != null) {
+                            SudokuFileIO.serializeToFile(file, gridview.getModel());
+                            // Optionally show a success message
+                        } else {
+                            // Handle the case where sudokuModel is null
+                            System.out.println("No Sudoku model to save.");
+                            // Optionally show an error message to the user
+                        }
+                    } catch (Exception e) { // Catch a more specific exception if possible
+                        System.out.println("Error occurred while saving the file: " + e.getMessage());
+                        // Optionally show an error message to the user
+                    }
+                } else {
+                    System.out.println("Save operation cancelled.");
                 }
             }
         });
+
 
         exitMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -78,9 +125,15 @@ public class MenuBarComponent {
                 Platform.exit();
             }
         });
+        printArray.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                gridview.getModel().printArray();
+            }
+        });
 
         // Add items to the "File" menu
-        fileMenu.getItems().addAll(loadGameMenuItem, saveGameMenuItem, new SeparatorMenuItem(), exitMenuItem);
+        fileMenu.getItems().addAll(loadGameMenuItem, saveGameMenuItem, new SeparatorMenuItem(), exitMenuItem,printArray);
 
         // Create the "Game" menu
         Menu gameMenu = new Menu("Game");
@@ -96,7 +149,6 @@ public class MenuBarComponent {
             public void handle(ActionEvent event) {
                 // Define what should happen when "Save" is selected
                 System.out.println("New Easy Game menu item selected");
-                //replaceSudokuGrid(SudokuUtilities.SudokuLevel.EASY);
             }
         });
         mediumNewGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
@@ -104,7 +156,6 @@ public class MenuBarComponent {
             public void handle(ActionEvent event) {
                 // Define what should happen when "Save" is selected
                 System.out.println("New Medium Game menu item selected");
-                //replaceSudokuGrid(SudokuUtilities.SudokuLevel.MEDIUM);
             }
         });
         hardNewGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
@@ -112,7 +163,6 @@ public class MenuBarComponent {
             public void handle(ActionEvent event) {
                 // Define what should happen when "Save" is selected
                 System.out.println("New Hard Game menu item selected");
-                //replaceSudokuGrid(SudokuUtilities.SudokuLevel.HARD);
             }
         });
 
@@ -189,5 +239,13 @@ public class MenuBarComponent {
     public MenuBar getMenuBar() {
         return menuBar;
     }
+    /*public void updateSudokuModel(SudokuModel newModel) {
+        this.sudokuModel = newModel;
+        gridview.setModel(newModel);
+        gridview.getModel().printArray();
+        //gridview.setSudokuModel(newModel);
+        //gridview.updateViewModel();
+    }*/
+
 }
 

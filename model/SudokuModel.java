@@ -3,9 +3,14 @@ import util.SudokuUtilities;
 
 import static util.SudokuUtilities.generateSudokuMatrix;
 
-public class SudokuModel {
+import java.io.Serializable;
+
+import util.SudokuUtilities.SudokuLevel;
+
+public class SudokuModel implements Serializable{
     private static int selectedNumber;
     private Tile[][] grid;
+    private SudokuLevel level;
 
     public SudokuModel(SudokuUtilities.SudokuLevel level) {
         // Initialize the grid and create Tile objects
@@ -25,6 +30,14 @@ public class SudokuModel {
             }
         }
     }
+    public void printArray() {
+            for (Tile[] row : grid) {
+                for (Tile element : row) {
+                    System.out.print(element.getValue() + " ");
+                }
+                System.out.println();
+            }
+    }
 
     public Tile getTile(int row, int col) {
         return grid[row][col];
@@ -35,14 +48,35 @@ public class SudokuModel {
     }
     public void clearTile(int row, int col)
     {
-        grid[row][col].setValue(0);
+        if(getTile(row,col).isEditable())
+        {
+            grid[row][col].setValue(0);
+        }
     }
     public static int getSelectedNumber()
     {
         return selectedNumber;
     }
+    public void setSudokuModel(Tile[][] grid, SudokuLevel level)
+    {
+        this.grid = grid;
+        this.level = level;
+    }
     public static void setSelectedNumber(int choice)
     {
         selectedNumber = choice;
+    }
+    public SudokuLevel getLevel()
+    {
+        return level;
+    }
+        public Tile[][] getTiles()
+    {
+        return grid;
+    }
+    public boolean isSolved()
+    {
+        //check if the sudokumodel is solved.
+        return true;
     }
 }

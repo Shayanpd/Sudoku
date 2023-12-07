@@ -9,6 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import model.SudokuModel;
 import util.SudokuUtilities;
+import util.SudokuUtilities.SudokuLevel;
 
 import static util.SudokuUtilities.generateSudokuMatrix;
 
@@ -18,22 +19,29 @@ public class Gridview {
     private static final int SECTION_SIZE = SudokuUtilities.SECTION_SIZE;
     private Label[][] numberTiles; // the tiles/squares to show in the ui grid
     private TilePane numberPane;
-    private SudokuModel sudokuModel;
     private SudokuController controller;
+    private SudokuModel sudokuModel;
+
     
-    
-    public Gridview(SudokuUtilities.SudokuLevel level) {
+    public Gridview(SudokuModel sudokuModel) {
+        this.sudokuModel = sudokuModel;
         numberTiles = new Label[GRID_SIZE][GRID_SIZE];
-        sudokuModel = new SudokuModel(level);
         controller = new SudokuController(sudokuModel, this);
         initNumberTiles();
         // ...
         numberPane = makeNumberPane();
         // ...
     }
-    public void updateTile(int row, int col, int value) {
-        sudokuModel.getTile(row, col).setValue(value);
+
+    public void updateGridTile(int row, int col, int value) {
+        if(value >= 1 && value <= 9 )
+        {
         numberTiles[row][col].setText(String.valueOf(value));
+        }
+        else
+        {
+            clearTile(row, col);
+        }
     }
 
     public void clearTile(int row, int col) {
@@ -73,7 +81,7 @@ public class Gridview {
     
         for (int row = 0; row < GRID_SIZE; row++) {
             for (int col = 0; col < GRID_SIZE; col++) {
-                Label tile = new Label(Integer.toString(sudokuModel.getTile(row, col).getValue())); // Assuming getValue method in your model
+                Label tile = new Label(/* add number, or "", to display */); // data from model
                 tile.setPrefWidth(32);
                 tile.setPrefHeight(32);
                 tile.setFont(font);
@@ -120,4 +128,36 @@ public class Gridview {
     
         return root;
     }
+
+    public SudokuModel getModel()
+    {
+        return this.sudokuModel;
     }
+    public void newModel(SudokuModel sudokuModel)
+    {
+        this.sudokuModel = sudokuModel;
+    }
+    public void updateViewModel()
+    {
+        for (int row = 0; row < SudokuUtilities.GRID_SIZE; row++)
+        {
+            for (int col = 0; col < SudokuUtilities.GRID_SIZE; col++)
+            {
+                if(sudokuModel.getTile(row, col).isEditable())
+                {
+                    updateGridTile(row, col, sudokuModel.getTile(row, col).getValue());
+                }
+            }
+        }
+    }
+    public void generateNewGameHandler(SudokuLevel level)
+    {
+        //if model level is initialized then clear cells
+        //initialize level
+        //update from model.   (Gridview.updateFromModel();)
+    }
+    public SudokuController getController()
+    {
+        return controller;
+    }
+}

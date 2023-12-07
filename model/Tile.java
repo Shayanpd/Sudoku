@@ -1,14 +1,15 @@
 package model;
 
-public class Tile {
-    private int correctValue;
+import java.io.Serializable;
+
+public class Tile implements Serializable{
     private int currentValue;
     private boolean isEditable; // Whether the value is editable by the player
 
-    public Tile() {
+    public Tile(){
         // Initialize the tile with no value and as editable
-        currentValue = 0;
-        isEditable = true;
+        this.currentValue = 0;
+        this.isEditable = true;
     }
 
     public int getValue() {
@@ -34,7 +35,6 @@ public class Tile {
     public boolean isFilled() {
         return currentValue != 0;
     }
-    
     // Other methods related to a Sudoku tile can be added here
 }
 
