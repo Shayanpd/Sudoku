@@ -30,13 +30,19 @@ public class SudokuController {
         
         // Implement this method to handle tile clicks.
         // You can update the model and view here.
-        if (selectedNumber >= 1 && selectedNumber <= 9) {
+        if (selectedNumber >= 1 && selectedNumber <= 9 && sudokuModel.getTile(row, col).isEditable()) {
             sudokuModel.setTileValue(row, col, selectedNumber);
             gridview.updateGridTile(row, col, selectedNumber);
                 //update sudokumodel
-        } else {
+        } 
+        else if(selectedNumber == 0 && sudokuModel.getTile(row, col).isEditable())
+        {
             sudokuModel.clearTile(row, col);
             gridview.clearTile(row, col); // Implement this method in Gridview
+        }
+        else
+        {
+            //throw exception error
         }
         System.out.println("Set" + selectedNumber + " at Row: " + row + " Column: " + col);
     }

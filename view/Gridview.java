@@ -134,6 +134,7 @@ public class Gridview {
     public void newModel(SudokuModel sudokuModel)
     {
         this.sudokuModel = sudokuModel;
+        updateViewModel();
     }
     public void updateViewModel()
     {
@@ -141,10 +142,8 @@ public class Gridview {
         {
             for (int col = 0; col < SudokuUtilities.GRID_SIZE; col++)
             {
-                if(sudokuModel.getTile(row, col).isEditable())
-                {
                     updateGridTile(row, col, sudokuModel.getTile(row, col).getValue());
-                }
+        
             }
         }
     }
