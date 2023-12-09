@@ -1,10 +1,7 @@
 package model;
 import util.SudokuUtilities;
-
 import static util.SudokuUtilities.generateSudokuMatrix;
-
 import java.io.Serializable;
-
 import util.SudokuUtilities.SudokuLevel;
 
 public class SudokuModel implements Serializable{

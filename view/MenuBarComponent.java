@@ -70,8 +70,8 @@ public class MenuBarComponent {
         loadGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                int result = fileChooser.showOpenDialog(null); // Declare and initialize result here
 
+                int result = fileChooser.showOpenDialog(null); // Declare and initialize result here
                 // Inside your event handler
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
@@ -83,8 +83,7 @@ public class MenuBarComponent {
                     System.out.println("File selection cancelled.");
                 }
 
-
-                }
+            }
 
         });
 
@@ -147,21 +146,33 @@ public class MenuBarComponent {
         easyNewGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // Define what should happen when "Save" is selected
+                // Define what should happen when "New Easy game" is selected
+                SudokuModel model = gridview.getController().createNewModel(SudokuUtilities.SudokuLevel.EASY);
+                gridview.newModel(model);
+                gridview.getController().setModel(model);
+                gridview.updateViewModel();
                 System.out.println("New Easy Game menu item selected");
             }
         });
         mediumNewGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // Define what should happen when "Save" is selected
+                // Define what should happen when "New Medium game" is selected
+                SudokuModel model = gridview.getController().createNewModel(SudokuUtilities.SudokuLevel.MEDIUM);
+                gridview.newModel(model);
+                gridview.getController().setModel(model);
+                gridview.updateViewModel();
                 System.out.println("New Medium Game menu item selected");
             }
         });
         hardNewGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // Define what should happen when "Save" is selected
+                // Define what should happen when "New Hard game" is selected
+                SudokuModel model = gridview.getController().createNewModel(SudokuUtilities.SudokuLevel.HARD);
+                gridview.newModel(model);
+                gridview.getController().setModel(model);
+                gridview.updateViewModel();
                 System.out.println("New Hard Game menu item selected");
             }
         });
@@ -178,18 +189,18 @@ public class MenuBarComponent {
         // Create the "Help" menu
         Menu helpMenu = new Menu("Help");
 
-        helpMenu.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                // Define what should happen when "Exit" is selected
-                System.out.println("Help menu item selected");
-            }
-        });
-
         // Create items for the "Help" menu
         MenuItem clearSpacesMenuItem = new MenuItem("Clear spaces");
         MenuItem checkMenuItem = new MenuItem("Check");
         MenuItem aboutMenuItem = new MenuItem("About");
+
+        checkMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                // Define what should happen when "check" is selected
+                System.out.println("check selected");
+            }
+        });
 
         aboutMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override

@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import model.SudokuModel;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
+import util.SudokuUtilities;
 import view.ButtonChoice;
 import view.Gridview;
 import view.MenuBarComponent;
@@ -14,7 +15,7 @@ import view.ButtonToolbar;
 public class App extends Application {
     @Override
     public void start(Stage stage) {
-        SudokuModel sudokuModel = new SudokuModel();
+        SudokuModel sudokuModel = new SudokuModel(SudokuUtilities.SudokuLevel.EASY);
 
         // Create the Gridview
         Gridview gridView = new Gridview(sudokuModel);
@@ -25,7 +26,6 @@ public class App extends Application {
         // Create the MenuBar component
         MenuBarComponent menuBarComponent = new MenuBarComponent(gridView, sudokuModel);
         root.setTop(menuBarComponent.getMenuBar());
-
 
         // Create the ButtonToolbar component
         ButtonToolbar buttonToolbar = new ButtonToolbar();

@@ -22,11 +22,11 @@ public class SudokuController {
     }
 
     public void handleTileClick(int row, int col) {
-            if (sudokuModel == null || gridview == null) {
-                System.out.println("SudokuModel or Gridview is null in handleTileClick");
-                return; // Or throw an exception
-            }
-            // Existing logic...
+        if (sudokuModel == null || gridview == null) {
+            System.out.println("SudokuModel or Gridview is null in handleTileClick");
+            return; // Or throw an exception
+        }
+        // Existing logic...
         
         // Implement this method to handle tile clicks.
         // You can update the model and view here.
@@ -44,6 +44,10 @@ public class SudokuController {
     public void handleSelectedNumberChange(int selectedNumber) {
         // Implement this method to handle changes in the selected number.
         SudokuModel.setSelectedNumber(selectedNumber);
+    }
+
+    public SudokuModel createNewModel(SudokuUtilities.SudokuLevel level){
+        return new SudokuModel(level);
     }
 
     private void checkIfWon()

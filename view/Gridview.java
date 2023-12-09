@@ -11,8 +11,6 @@ import model.SudokuModel;
 import util.SudokuUtilities;
 import util.SudokuUtilities.SudokuLevel;
 
-import static util.SudokuUtilities.generateSudokuMatrix;
-
 public class Gridview {
     private static final int GRID_SIZE = SudokuUtilities.GRID_SIZE;
     private static final int SECTIONS_PER_ROW = SudokuUtilities.SECTIONS_PER_ROW;
