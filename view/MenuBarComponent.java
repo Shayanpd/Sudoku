@@ -25,7 +25,7 @@ public class MenuBarComponent {
     protected String path;
     private JFileChooser fileChooser = new JFileChooser();
 
-    public MenuBarComponent(Gridview gridview, SudokuModel sudokuModel) {
+    public MenuBarComponent(Gridview gridview) {
         menuBar = new MenuBar();
         this.gridview = gridview;
 

@@ -1,6 +1,7 @@
 package view;
 
 import javafx.event.ActionEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.SudokuModel;
@@ -13,7 +14,7 @@ public class SudokuController {
     private final FileChooser fileChooser;
     public static int selectedNumber;
 
-    public SudokuController(Gridview gridview) {
+    public SudokuController(SudokuModel sudokuModel, Gridview gridview) {
         this.sudokuModel = sudokuModel;
         this.gridview = gridview;
         this.fileChooser = new FileChooser();

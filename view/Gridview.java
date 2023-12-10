@@ -5,11 +5,13 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import model.SudokuModel;
 import util.SudokuUtilities;
 import util.SudokuUtilities.SudokuLevel;
+
 
 public class Gridview {
     private static final int GRID_SIZE = SudokuUtilities.GRID_SIZE;
@@ -24,7 +26,7 @@ public class Gridview {
     public Gridview(SudokuModel sudokuModel) {
         this.sudokuModel = sudokuModel;
         numberTiles = new Label[GRID_SIZE][GRID_SIZE];
-        controller = new SudokuController(this);
+        controller = new SudokuController(sudokuModel, this);
         initNumberTiles();
         // ...
         numberPane = makeNumberPane();
@@ -35,6 +37,11 @@ public class Gridview {
         if(value >= 1 && value <= 9 )
         {
         numberTiles[row][col].setText(String.valueOf(value));
+        if(sudokuModel.getTile(row, col).isEditable())
+        {
+            String existingStyle = numberTiles[row][col].getStyle();
+            numberTiles[row][col].setStyle(existingStyle + "-fx-text-fill: blue;");
+        }
         }
         else
         {
@@ -45,6 +52,8 @@ public class Gridview {
     public void clearTile(int row, int col) {
         sudokuModel.getTile(row, col).clearValue();
         numberTiles[row][col].setText("");
+        String existingStyle = numberTiles[row][col].getStyle();
+        numberTiles[row][col].setStyle(existingStyle + "-fx-text-fill: black;");
     }
     private EventHandler<MouseEvent> tileClickHandler = new EventHandler<MouseEvent>() {
         @Override
