@@ -13,7 +13,7 @@ public class SudokuController {
     private final FileChooser fileChooser;
     public static int selectedNumber;
 
-    public SudokuController(SudokuModel sudokuModel, Gridview gridview) {
+    public SudokuController(Gridview gridview) {
         this.sudokuModel = sudokuModel;
         this.gridview = gridview;
         this.fileChooser = new FileChooser();

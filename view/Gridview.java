@@ -24,7 +24,7 @@ public class Gridview {
     public Gridview(SudokuModel sudokuModel) {
         this.sudokuModel = sudokuModel;
         numberTiles = new Label[GRID_SIZE][GRID_SIZE];
-        controller = new SudokuController(sudokuModel, this);
+        controller = new SudokuController(this);
         initNumberTiles();
         // ...
         numberPane = makeNumberPane();

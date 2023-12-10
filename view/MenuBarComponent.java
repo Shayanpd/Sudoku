@@ -21,7 +21,6 @@ import java.io.File;
 
 public class MenuBarComponent {
     private MenuBar menuBar;
-    private SudokuModel sudokuModel;
     private Gridview gridview;
     protected String path;
     private JFileChooser fileChooser = new JFileChooser();
@@ -29,7 +28,6 @@ public class MenuBarComponent {
     public MenuBarComponent(Gridview gridview, SudokuModel sudokuModel) {
         menuBar = new MenuBar();
         this.gridview = gridview;
-        this.sudokuModel = sudokuModel;
 
 
         // Create the "File" menu

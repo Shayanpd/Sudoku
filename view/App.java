@@ -7,10 +7,6 @@ import model.SudokuModel;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import util.SudokuUtilities;
-import view.ButtonChoice;
-import view.Gridview;
-import view.MenuBarComponent;
-import view.ButtonToolbar;
 
 public class App extends Application {
     @Override
