@@ -1,6 +1,8 @@
 package view;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -54,16 +56,36 @@ public class SudokuController {
     public void compareCurrentGridToSolutionValues(){
         Tile[][] solutionValues = sudokuModel.getSolutionValues();
         Tile[][] currentGrid = sudokuModel.getGrid();
+        int gameover = 0;
         for (int row = 0; row < GRID_SIZE; row++){
             for (int col = 0; col < GRID_SIZE; col++){
                 if (currentGrid[row][col].getValue() != 0 && currentGrid[row][col].getValue() != solutionValues[row][col].getValue()) {
                     currentGrid[row][col].setCorrectValue(false);
                 }
-                else currentGrid[row][col].setCorrectValue(true);
+                else 
+                {
+                    currentGrid[row][col].setCorrectValue(true);
+                    if (currentGrid[row][col].getValue() != 0) gameover++;
+                }
             }
         }
+        if (gameover == GRID_SIZE * GRID_SIZE) gameOverScreen();
     }
     
+    public void gameOverScreen() {
+        // Create an alert with a specific type
+        Alert alert = new Alert(AlertType.INFORMATION);
+
+        // Set the title and header text
+        alert.setTitle("Game Over");
+        alert.setHeaderText(null); // You can set this to a string if you want a header
+
+        // Set the content text
+        alert.setContentText("Game over, You Win!");
+
+        // Show the alert and wait for it to be closed
+        alert.showAndWait();
+    }
     public void handleSelectedNumberChange(int selectedNumber) {
         // Implement this method to handle changes in the selected number.
         SudokuModel.setSelectedNumber(selectedNumber);
