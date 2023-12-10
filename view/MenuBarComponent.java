@@ -194,7 +194,7 @@ public class MenuBarComponent {
             @Override
             public void handle(ActionEvent actionEvent) {
                 // Define what should happen when "check" is selected
-                gridview.getController().getModel().compareGridToSolutionValues();
+                gridview.getController().compareCurrentGridToSolutionValues();
                 gridview.updateViewModel();
                 System.out.println("check selected");
             }

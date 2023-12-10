@@ -5,8 +5,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.SudokuModel;
+import model.Tile;
 import util.SudokuUtilities;
 import view.Gridview;
+
+import static util.SudokuUtilities.GRID_SIZE;
 
 public class SudokuController {
     private SudokuModel sudokuModel;
@@ -46,6 +49,19 @@ public class SudokuController {
             //throw exception error
         }
         System.out.println("Set" + selectedNumber + " at Row: " + row + " Column: " + col);
+    }
+
+    public void compareCurrentGridToSolutionValues(){
+        Tile[][] solutionValues = sudokuModel.getSolutionValues();
+        Tile[][] currentGrid = sudokuModel.getGrid();
+        for (int row = 0; row < GRID_SIZE; row++){
+            for (int col = 0; col < GRID_SIZE; col++){
+                if (currentGrid[row][col].getValue() != 0 && currentGrid[row][col].getValue() != solutionValues[row][col].getValue()) {
+                    currentGrid[row][col].setCorrectValue(false);
+                }
+                else currentGrid[row][col].setCorrectValue(true);
+            }
+        }
     }
     
     public void handleSelectedNumberChange(int selectedNumber) {

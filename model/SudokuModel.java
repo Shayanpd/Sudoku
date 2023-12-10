@@ -31,7 +31,7 @@ public class SudokuModel implements Serializable{
         setSudokuModel(grid, level);
     }
 
-    private Tile[][] getSolutionValues(){
+    public Tile[][] getSolutionValues(){
         int[][][] sudokuMatrix = generateSudokuMatrix(getLevel());
 
         Tile[][] solutionGrid = new Tile[GRID_SIZE][GRID_SIZE];
@@ -47,17 +47,7 @@ public class SudokuModel implements Serializable{
         }
         return solutionGrid;
     }
-    public void compareGridToSolutionValues(){
-        Tile[][] solutionValues = getSolutionValues();
-        for (int row = 0; row < GRID_SIZE; row++){
-            for (int col = 0; col < GRID_SIZE; col++){
-                if (grid[row][col].getValue() != 0 && grid[row][col].getValue() != solutionValues[row][col].getValue()) {
-                    grid[row][col].setCorrectValue(false);
-                }
-                else grid[row][col].setCorrectValue(true);
-            }
-        }
-    }
+    public Tile[][] getGrid(){ return grid;}
     public void printArray() {
             for (Tile[] row : grid) {
                 for (Tile element : row) {
