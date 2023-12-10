@@ -143,7 +143,18 @@ public class Gridview {
     public void newModel(SudokuModel sudokuModel)
     {
         this.sudokuModel = sudokuModel;
+        colorReset();
         updateViewModel();
+    }
+    public void colorReset()
+    {
+        for (int row = 0; row < GRID_SIZE; row++) {
+            for (int col = 0; col < GRID_SIZE; col++) {
+                numberTiles[row][col].setText("");
+                String existingStyle = numberTiles[row][col].getStyle();
+                numberTiles[row][col].setStyle(existingStyle + "-fx-text-fill: black;");
+                }
+            }
     }
     public void updateViewModel()
     {
@@ -156,12 +167,7 @@ public class Gridview {
             }
         }
     }
-    public void generateNewGameHandler(SudokuLevel level)
-    {
-        //if model level is initialized then clear cells
-        //initialize level
-        //update from model.   (Gridview.updateFromModel();)
-    }
+
     public SudokuController getController()
     {
         return controller;
