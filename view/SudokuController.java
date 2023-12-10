@@ -1,6 +1,7 @@
 package view;
 
 import javafx.event.ActionEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.SudokuModel;

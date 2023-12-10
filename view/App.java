@@ -7,10 +7,6 @@ import model.SudokuModel;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import util.SudokuUtilities;
-import view.ButtonChoice;
-import view.Gridview;
-import view.MenuBarComponent;
-import view.ButtonToolbar;
 
 public class App extends Application {
     @Override
@@ -24,7 +20,7 @@ public class App extends Application {
         BorderPane root = new BorderPane();
 
         // Create the MenuBar component
-        MenuBarComponent menuBarComponent = new MenuBarComponent(gridView, sudokuModel);
+        MenuBarComponent menuBarComponent = new MenuBarComponent(gridView);
         root.setTop(menuBarComponent.getMenuBar());
 
         // Create the ButtonToolbar component
