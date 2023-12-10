@@ -38,6 +38,7 @@ public class SudokuController {
         // You can update the model and view here.
         if (selectedNumber >= 1 && selectedNumber <= 9 && sudokuModel.getTile(row, col).isEditable()) {
             sudokuModel.setTileValue(row, col, selectedNumber);
+            sudokuModel.getTile(row, col).setCorrectValue(true);
             gridview.updateGridTile(row, col, selectedNumber);
                 //update sudokumodel
         } 

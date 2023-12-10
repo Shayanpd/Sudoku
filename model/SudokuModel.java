@@ -14,37 +14,32 @@ public class SudokuModel implements Serializable{
     public SudokuModel(SudokuUtilities.SudokuLevel level) {
         // Initialize the grid and create Tile objects
         selectedNumber = 0;
-        grid = new Tile[GRID_SIZE][GRID_SIZE];
+        setLevel(level);
+        this.grid = fillGridFromMatrix(0);
+    }
 
-        int[][][] sudokuMatrix = generateSudokuMatrix(level); // Get the initial layout based on the difficulty level
+    private Tile[][] fillGridFromMatrix(int mode){
+        Tile[][] temp = new Tile[GRID_SIZE][GRID_SIZE];
+
+        int[][][] sudokuMatrix = generateSudokuMatrix(getLevel());
 
         for (int row = 0; row < GRID_SIZE; row++) {
             for (int col = 0; col < GRID_SIZE; col++) {
-                int initialValue = sudokuMatrix[row][col][0]; // Get the initial value from the matrix
+                int initialValue = sudokuMatrix[row][col][mode]; // Get the initial value from the matrix
                 boolean isEditable = initialValue == 0; // Determine if the tile is editable based on its initial value
 
-                grid[row][col] = new Tile();
-                grid[row][col].setValue(initialValue);
-                grid[row][col].setEditable(isEditable);
+                temp[row][col] = new Tile();
+                temp[row][col].setValue(initialValue);
+                temp[row][col].setEditable(isEditable);
             }
         }
-        setSudokuModel(grid, level);
+
+        return temp;
     }
 
     public Tile[][] getSolutionValues(){
-        int[][][] sudokuMatrix = generateSudokuMatrix(getLevel());
+        Tile[][] solutionGrid = fillGridFromMatrix(1);;
 
-        Tile[][] solutionGrid = new Tile[GRID_SIZE][GRID_SIZE];
-
-        for (int row = 0; row < 9; row++){
-            for (int col = 0; col < 9; col++){
-                int initialValue = sudokuMatrix[row][col][1];
-                boolean isEditable = initialValue == 0;
-                solutionGrid[row][col] = new Tile();
-                solutionGrid[row][col].setValue(initialValue);
-                solutionGrid[row][col].setEditable(isEditable);
-            }
-        }
         return solutionGrid;
     }
     public Tile[][] getGrid(){ return grid;}
@@ -84,11 +79,8 @@ public class SudokuModel implements Serializable{
     {
         return selectedNumber;
     }
-    public void setSudokuModel(Tile[][] grid, SudokuLevel level)
-    {
-        this.grid = grid;
-        this.level = level;
-    }
+    public void setGrid(Tile[][] grid) {this.grid = grid;}
+    public void setLevel(SudokuLevel level) {this.level = level;}
     public static void setSelectedNumber(int choice)
     {
         selectedNumber = choice;
