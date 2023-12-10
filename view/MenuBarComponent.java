@@ -212,8 +212,9 @@ public class MenuBarComponent {
         clearSpacesMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                gridview.getController().getModel().clearAllTiles();
+                gridview.updateViewModel();
                 System.out.println("Clear spaces clicked");
-
             }
 
         });

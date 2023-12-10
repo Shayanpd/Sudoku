@@ -50,6 +50,15 @@ public class SudokuModel implements Serializable{
             grid[row][col].setValue(0);
         }
     }
+    public void clearAllTiles(){
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 9; col++) {
+                if (grid[row][col].isEditable()){
+                    grid[row][col].clearValue();
+                }
+            }
+        }
+    }
     public static int getSelectedNumber()
     {
         return selectedNumber;
