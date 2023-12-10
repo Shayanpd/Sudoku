@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
+import java.util.Random;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.SudokuModel;
@@ -95,17 +96,32 @@ public class SudokuController {
         return new SudokuModel(level);
     }
 
-    private void checkIfWon()
-    {
-        if(sudokuModel.isSolved())
-        {
-            //view.showGameWinAlert();
-        }
-    }
-
     public void handleHint()
     {
-        //kod för att hantera hint
+        Tile[][] solutionValues = sudokuModel.getSolutionValues();
+        Tile[][] currentGrid = sudokuModel.getGrid();
+        int[][] hintGrid;
+        int GRID_SIZE_SQUARED = GRID_SIZE * GRID_SIZE;
+        hintGrid = new int[GRID_SIZE_SQUARED][3];
+        int counter = 0;
+        for (int row = 0; row < GRID_SIZE; row++){
+            for (int col = 0; col < GRID_SIZE; col++){
+                if (solutionValues[row][col].getValue() != currentGrid[row][col].getValue() && currentGrid[row][col].isEditable()){
+                    hintGrid[counter][0] = solutionValues[row][col].getValue();
+                    hintGrid[counter][1] = row;
+                    hintGrid[counter][2] = col;
+                    counter++;
+                }
+
+            }
+        }
+        if(counter != 0)
+        {
+            Random rand = new Random();
+            int randomNum = rand.nextInt(counter);
+            sudokuModel.setTileValue(hintGrid[randomNum][1], hintGrid[randomNum][2], hintGrid[randomNum][0]);
+            gridview.updateGridTile(hintGrid[randomNum][1], hintGrid[randomNum][2], hintGrid[randomNum][0]);
+        }
     }
     public SudokuModel getModel()
     {
@@ -116,5 +132,4 @@ public class SudokuController {
         this.sudokuModel = sudokuModel; 
         //updatefrommodel
     }
-    // Add more controller methods to handle other user interactions as needed.
 }

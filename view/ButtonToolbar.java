@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 public class ButtonToolbar {
       private VBox buttonToolbar;
 
-    public ButtonToolbar() {
+    public ButtonToolbar(Gridview gridview) {
         buttonToolbar = new VBox(10);
         buttonToolbar.setAlignment(Pos.CENTER);
         buttonToolbar.setPadding(new Insets(0, 10, 0, 10));
@@ -22,6 +22,7 @@ public class ButtonToolbar {
         });
         button2.setOnAction(event -> {
             System.out.println("Hint button clicked!");
+            gridview.getController().handleHint();
         });
 
         // Add buttons to the VBox

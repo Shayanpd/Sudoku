@@ -24,7 +24,7 @@ public class App extends Application {
         root.setTop(menuBarComponent.getMenuBar());
 
         // Create the ButtonToolbar component
-        ButtonToolbar buttonToolbar = new ButtonToolbar();
+        ButtonToolbar buttonToolbar = new ButtonToolbar(gridView);
         // Create the ButtonToolbar component
         ButtonChoice buttonChoice = new ButtonChoice();
 
