@@ -82,9 +82,7 @@ public class MenuBarComponent {
                 } else {
                     System.out.println("File selection cancelled.");
                 }
-
             }
-
         });
 
 
@@ -198,6 +196,8 @@ public class MenuBarComponent {
             @Override
             public void handle(ActionEvent actionEvent) {
                 // Define what should happen when "check" is selected
+                gridview.getController().getModel().compareGridToSolutionValues();
+                gridview.updateViewModel();
                 System.out.println("check selected");
             }
         });
@@ -216,7 +216,6 @@ public class MenuBarComponent {
                 gridview.updateViewModel();
                 System.out.println("Clear spaces clicked");
             }
-
         });
 
         // Add items to the "Help" menu
