@@ -18,11 +18,13 @@ public class ButtonToolbar {
         Button button2 = new Button("Hint");
 
         button1.setOnAction(event -> {
+            gridview.getController().compareCurrentGridToSolutionValues();
+            gridview.updateViewModel();
             System.out.println("Check button clicked!");
         });
         button2.setOnAction(event -> {
-            System.out.println("Hint button clicked!");
             gridview.getController().handleHint();
+            System.out.println("Hint button clicked!");
         });
 
         // Add buttons to the VBox

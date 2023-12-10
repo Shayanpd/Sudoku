@@ -121,6 +121,7 @@ public class SudokuController {
             Random rand = new Random();
             int randomNum = rand.nextInt(counter);
             sudokuModel.setTileValue(hintGrid[randomNum][1], hintGrid[randomNum][2], hintGrid[randomNum][0]);
+            sudokuModel.getTile(hintGrid[randomNum][1], hintGrid[randomNum][2]).setCorrectValue(true);
             gridview.updateGridTile(hintGrid[randomNum][1], hintGrid[randomNum][2], hintGrid[randomNum][0]);
         }
     }
