@@ -4,12 +4,21 @@ import java.io.Serializable;
 
 public class Tile implements Serializable{
     private int currentValue;
+    private boolean isCorrectValue = true;
     private boolean isEditable; // Whether the value is editable by the player
 
     public Tile(){
         // Initialize the tile with no value and as editable
         this.currentValue = 0;
         this.isEditable = true;
+    }
+
+    public boolean isCorrectValue() {
+        return isCorrectValue;
+    }
+
+    public void setCorrectValue(boolean correctValue) {
+        isCorrectValue = correctValue;
     }
 
     public int getValue() {

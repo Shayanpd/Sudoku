@@ -51,7 +51,10 @@ public class SudokuModel implements Serializable{
         Tile[][] solutionValues = getSolutionValues();
         for (int row = 0; row < GRID_SIZE; row++){
             for (int col = 0; col < GRID_SIZE; col++){
-                if (grid[row][col].getValue() != solutionValues[row][col].getValue()) setIncorrectTileColor(grid[row][col]);
+                if (grid[row][col].getValue() != 0 && grid[row][col].getValue() != solutionValues[row][col].getValue()) {
+                    grid[row][col].setCorrectValue(false);
+                }
+                else grid[row][col].setCorrectValue(true);
             }
         }
     }

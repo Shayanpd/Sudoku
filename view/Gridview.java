@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import model.SudokuModel;
+import model.Tile;
 import util.SudokuUtilities;
 import util.SudokuUtilities.SudokuLevel;
 
@@ -34,17 +35,20 @@ public class Gridview {
     }
 
     public void updateGridTile(int row, int col, int value) {
-        if(value >= 1 && value <= 9 )
-        {
-        numberTiles[row][col].setText(String.valueOf(value));
-        if(sudokuModel.getTile(row, col).isEditable())
-        {
-            String existingStyle = numberTiles[row][col].getStyle();
-            numberTiles[row][col].setStyle(existingStyle + "-fx-text-fill: blue;");
+        if(value >= 1 && value <= 9 ){
+
+            numberTiles[row][col].setText(String.valueOf(value));
+            if(sudokuModel.getTile(row, col).isEditable() && sudokuModel.getTile(row, col).isCorrectValue()){
+
+                String existingStyle = numberTiles[row][col].getStyle();
+                numberTiles[row][col].setStyle(existingStyle + "-fx-text-fill: blue;");
+            }
+            else if (sudokuModel.getTile(row, col).isEditable() && !sudokuModel.getTile(row, col).isCorrectValue()) {
+                String existingStyle = numberTiles[row][col].getStyle();
+                numberTiles[row][col].setStyle(existingStyle + "-fx-text-fill: red;");
+            }
         }
-        }
-        else
-        {
+        else{
             clearTile(row, col);
         }
     }
@@ -156,6 +160,7 @@ public class Gridview {
                 }
             }
     }
+
     public void updateViewModel()
     {
         for (int row = 0; row < SudokuUtilities.GRID_SIZE; row++)
@@ -163,7 +168,7 @@ public class Gridview {
             for (int col = 0; col < SudokuUtilities.GRID_SIZE; col++)
             {
                     updateGridTile(row, col, sudokuModel.getTile(row, col).getValue());
-        
+
             }
         }
     }
