@@ -93,8 +93,20 @@ public class SudokuController {
         SudokuModel.setSelectedNumber(selectedNumber);
     }
 
-    public SudokuModel createNewModel(SudokuUtilities.SudokuLevel level){
-        return new SudokuModel(level);
+    public SudokuModel createNewEasyModel(){
+        int rand = (int)(Math.random() * 2) + 1;
+        if (rand == 1) return new SudokuModel(SudokuUtilities.SudokuLevel.EASY);
+        else return new SudokuModel(SudokuUtilities.SudokuLevel.EASY_REVERSE);
+    }
+    public SudokuModel createNewMediumModel(){
+        int rand = (int)(Math.random() * 2) + 1;
+        if (rand == 1) return new SudokuModel(SudokuUtilities.SudokuLevel.MEDIUM);
+        else return new SudokuModel(SudokuUtilities.SudokuLevel.MEDIUM_REVERSE);
+    }
+    public SudokuModel createNewHardModel(){
+        int rand = (int)(Math.random() * 2) + 1;
+        if (rand == 1) return new SudokuModel(SudokuUtilities.SudokuLevel.HARD);
+        else return new SudokuModel(SudokuUtilities.SudokuLevel.HARD_REVERSE);
     }
 
     public void handleHint()

@@ -143,7 +143,7 @@ public class MenuBarComponent {
             @Override
             public void handle(ActionEvent event) {
                 // Define what should happen when "New Easy game" is selected
-                SudokuModel model = gridview.getController().createNewModel(SudokuUtilities.SudokuLevel.EASY);
+                SudokuModel model = gridview.getController().createNewEasyModel();
                 gridview.newModel(model);
                 gridview.getController().setModel(model);
                 gridview.updateViewModel();
@@ -154,7 +154,7 @@ public class MenuBarComponent {
             @Override
             public void handle(ActionEvent event) {
                 // Define what should happen when "New Medium game" is selected
-                SudokuModel model = gridview.getController().createNewModel(SudokuUtilities.SudokuLevel.MEDIUM);
+                SudokuModel model = gridview.getController().createNewMediumModel();
                 gridview.newModel(model);
                 gridview.getController().setModel(model);
                 gridview.updateViewModel();
@@ -165,7 +165,7 @@ public class MenuBarComponent {
             @Override
             public void handle(ActionEvent event) {
                 // Define what should happen when "New Hard game" is selected
-                SudokuModel model = gridview.getController().createNewModel(SudokuUtilities.SudokuLevel.HARD);
+                SudokuModel model = gridview.getController().createNewHardModel();
                 gridview.newModel(model);
                 gridview.getController().setModel(model);
                 gridview.updateViewModel();
