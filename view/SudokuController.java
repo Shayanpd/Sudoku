@@ -14,12 +14,21 @@ import view.Gridview;
 
 import static util.SudokuUtilities.GRID_SIZE;
 
+/**
+ * The controller class for a Sudoku game, responsible for managing user interactions and updating the model and view.
+ */
 public class SudokuController {
     private SudokuModel sudokuModel;
     private final Gridview gridview;
     private final FileChooser fileChooser;
     public static int selectedNumber;
 
+    /**
+     * Constructor for SudokuController.
+     * 
+     * @param sudokuModel The Sudoku model to control.
+     * @param gridview The grid view to update based on the model.
+     */
     public SudokuController(SudokuModel sudokuModel, Gridview gridview) {
         this.sudokuModel = sudokuModel;
         this.gridview = gridview;
@@ -28,6 +37,12 @@ public class SudokuController {
         this.fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Sudoku Files", "*.sudoku" ));
     }
 
+    /**
+     * Handles a click on a tile in the Sudoku grid.
+     * 
+     * @param row The row index of the clicked tile.
+     * @param col The column index of the clicked tile.
+     */
     public void handleTileClick(int row, int col) {
         if (sudokuModel == null || gridview == null) {
             System.out.println("SudokuModel or Gridview is null in handleTileClick");
@@ -54,7 +69,9 @@ public class SudokuController {
         }
         System.out.println("Set" + selectedNumber + " at Row: " + row + " Column: " + col);
     }
-
+    /**
+     * Compares the current grid to the solution and updates the correctness of each tile.
+     */
     public void compareCurrentGridToSolutionValues(){
         Tile[][] solutionValues = sudokuModel.getSolutionValues();
         Tile[][] currentGrid = sudokuModel.getGrid();
@@ -74,6 +91,9 @@ public class SudokuController {
         if (gameover == GRID_SIZE * GRID_SIZE) gameOverScreen();
     }
     
+    /**
+     * Displays a game over screen when the puzzle is solved.
+     */
     public void gameOverScreen() {
         // Create an alert with a specific type
         Alert alert = new Alert(AlertType.INFORMATION);
@@ -88,27 +108,53 @@ public class SudokuController {
         // Show the alert and wait for it to be closed
         alert.showAndWait();
     }
+
+    /**
+     * Handles the change in the selected number for tile placement.
+     * 
+     * @param selectedNumber The newly selected number.
+     */
     public void handleSelectedNumberChange(int selectedNumber) {
         // Implement this method to handle changes in the selected number.
         SudokuModel.setSelectedNumber(selectedNumber);
     }
 
+    /**
+     * Creates a new Sudoku model with an easy difficulty level.
+     * 
+     * @return A new SudokuModel with easy difficulty.
+     */
     public SudokuModel createNewEasyModel(){
         int rand = (int)(Math.random() * 2) + 1;
         if (rand == 1) return new SudokuModel(SudokuUtilities.SudokuLevel.EASY);
         else return new SudokuModel(SudokuUtilities.SudokuLevel.EASY_REVERSE);
     }
+
+    /**
+     * Creates a new Sudoku model with a medium difficulty level.
+     * 
+     * @return A new SudokuModel with medium difficulty.
+     */
     public SudokuModel createNewMediumModel(){
         int rand = (int)(Math.random() * 2) + 1;
         if (rand == 1) return new SudokuModel(SudokuUtilities.SudokuLevel.MEDIUM);
         else return new SudokuModel(SudokuUtilities.SudokuLevel.MEDIUM_REVERSE);
     }
+
+    /**
+     * Creates a new Sudoku model with a hard difficulty level.
+     * 
+     * @return A new SudokuModel with hard difficulty.
+     */
     public SudokuModel createNewHardModel(){
         int rand = (int)(Math.random() * 2) + 1;
         if (rand == 1) return new SudokuModel(SudokuUtilities.SudokuLevel.HARD);
         else return new SudokuModel(SudokuUtilities.SudokuLevel.HARD_REVERSE);
     }
 
+    /**
+     * Provides a hint by setting one incorrect tile to the correct value.
+     */
     public void handleHint()
     {
         Tile[][] solutionValues = sudokuModel.getSolutionValues();
@@ -137,13 +183,24 @@ public class SudokuController {
             gridview.updateGridTile(hintGrid[randomNum][1], hintGrid[randomNum][2], hintGrid[randomNum][0]);
         }
     }
+
+    /**
+     * Gets the current Sudoku model.
+     * 
+     * @return The current SudokuModel.
+     */
     public SudokuModel getModel()
     {
         return sudokuModel;
     }
+
+    /**
+     * Sets the Sudoku model to a new model.
+     * 
+     * @param sudokuModel The new Sudoku model to set.
+     */
     public void setModel(SudokuModel sudokuModel)
     {
         this.sudokuModel = sudokuModel; 
-        //updatefrommodel
     }
 }

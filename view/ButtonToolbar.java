@@ -5,9 +5,18 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
+/**
+ * This class represents the toolbar with buttons for various actions in the Sudoku game.
+ */
 public class ButtonToolbar {
       private VBox buttonToolbar;
 
+    /**
+     * Constructor for ButtonToolbar.
+     * Initializes the toolbar with action buttons for the Sudoku game.
+     * 
+     * @param gridview The Gridview associated with this toolbar for handling button actions.
+     */
     public ButtonToolbar(Gridview gridview) {
         buttonToolbar = new VBox(10);
         buttonToolbar.setAlignment(Pos.CENTER);
@@ -31,6 +40,11 @@ public class ButtonToolbar {
         buttonToolbar.getChildren().addAll(button1, button2);
     }
 
+    /**
+     * Gets the VBox containing all the buttons in the toolbar.
+     * 
+     * @return A VBox with all action buttons.
+     */
     public VBox getButtonToolbar() {
         return buttonToolbar;
     }

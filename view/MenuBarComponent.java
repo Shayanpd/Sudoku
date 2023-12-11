@@ -12,19 +12,27 @@ import model.SudokuModel;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import util.SudokuUtilities;
 import util.SudokuFileIO;
 
 import javax.swing.*;
 import java.io.File;
 
 
+/**
+ * The MenuBarComponent class represents the menu bar in the Sudoku game,
+ * providing options like loading/saving games, and accessing game features.
+ */
 public class MenuBarComponent {
     private MenuBar menuBar;
     private Gridview gridview;
     protected String path;
     private JFileChooser fileChooser = new JFileChooser();
 
+    /**
+     * Constructor for MenuBarComponent.
+     * 
+     * @param gridview The Gridview associated with this menu bar.
+     */
     public MenuBarComponent(Gridview gridview) {
         menuBar = new MenuBar();
         this.gridview = gridview;
@@ -39,47 +47,21 @@ public class MenuBarComponent {
         MenuItem exitMenuItem = new MenuItem("Exit");
         MenuItem printArray = new MenuItem("Print");
 
-        /*loadGameMenuItem.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                // Define what should happen when "Open" is selected
-                System.out.println("Open menu item selected");
-                JFileChooser fileChooser = new JFileChooser();
-                File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
-                SudokuFileIO.deSerializeFromFile(file);
-                gridview.updateTiles();
-
-                // Hampus Note:
-                // 1. Ensure that util.SudokuFileIO is imported
-                // 2. Choose the file just like in the saveGameMenuItem
-                // 3. Reassign the model (you'll need to have it available in
-                //    here somehow! you could pass it as a parameter to this
-                //    class via the constructor - you will need this for the
-                //    saveGameMenuItem as well) to the return value of
-                //    SudokuFileIO.deSerializeFromFile(file)
-                // 4. Update the view to reflect the new model, i.e. by having a
-                //    method to setModel in the view and calling it here
-                // 5. Also, be sure to have an `renderFromModel` method (or
-                //    similar) in the view - that will allow you to make updates
-                //    via the controller, or in here, to the model, and then
-                //    update the view to reflect the changes
-            }
-        });*/
-        loadGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-                int result = fileChooser.showOpenDialog(null); // Declare and initialize result here
-                // Inside your event handler
+        loadGameMenuItem.setOnAction(event -> {
+            try {
+                int result = fileChooser.showOpenDialog(null);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
-                    SudokuModel model = SudokuFileIO.deSerializeFromFile(file);
+                    SudokuModel model = SudokuFileIO.deSerializeFromFile(file); // Ensure this method handles exceptions internally
                     gridview.newModel(model);
                     gridview.getController().setModel(model);
                     gridview.updateViewModel();
                 } else {
                     System.out.println("File selection cancelled.");
                 }
+            } catch (Exception e) {
+                System.out.println("Error occurred while loading the game: " + e.getMessage());
+                // Show an error dialog to the user
             }
         });
 
@@ -223,6 +205,9 @@ public class MenuBarComponent {
         menuBar.getMenus().addAll(fileMenu, gameMenu, helpMenu);
     }
 
+    /**
+     * Shows an informational popup about Sudoku rules.
+     */
     private void showAboutPopup() {
         Stage aboutStage = new Stage();
         aboutStage.setTitle("Sudoku Rules");
@@ -245,16 +230,14 @@ public class MenuBarComponent {
         aboutStage.show();
     }
 
+    /**
+     * Gets the MenuBar component.
+     * 
+     * @return The MenuBar instance.
+     */
     public MenuBar getMenuBar() {
         return menuBar;
     }
-    /*public void updateSudokuModel(SudokuModel newModel) {
-        this.sudokuModel = newModel;
-        gridview.setModel(newModel);
-        gridview.getModel().printArray();
-        //gridview.setSudokuModel(newModel);
-        //gridview.updateViewModel();
-    }*/
 
 }
 

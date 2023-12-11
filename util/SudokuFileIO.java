@@ -3,7 +3,7 @@ package util;
 import model.SudokuModel;
 import java.io.*;
 
-/** Utility class providing methods to serialize and deserialize a {@code SudokuModel}. */
+/**  A utility class providing methods to serialize and deserialize a {@code SudokuModel}. */
 public class SudokuFileIO {
   /**
    * Serialize the provided {@code SudokuModel} to the specified file.

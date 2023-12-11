@@ -7,9 +7,17 @@ import javafx.scene.layout.VBox;
 import model.SudokuModel;
 import view.SudokuController;
 
+/**
+ * This class represents a set of buttons for selecting numbers in the Sudoku game.
+ */
 public class ButtonChoice {
     private VBox buttonChoice;
 
+
+    /**
+     * Constructor for ButtonChoice.
+     * Initializes the buttons for number selection and the clear button.
+     */
     public ButtonChoice() {
         buttonChoice = new VBox(2);
         buttonChoice.setAlignment(Pos.CENTER);
@@ -72,6 +80,11 @@ public class ButtonChoice {
         buttonChoice.getChildren().addAll(button1, button2, button3, button4, button5, button6, button7, button8, button9, buttonC);
     }
 
+    /**
+     * Gets the VBox containing all the number selection buttons.
+     * 
+     * @return A VBox with all number buttons.
+     */
     public VBox getButtonChoice() {
         return buttonChoice;
     }
