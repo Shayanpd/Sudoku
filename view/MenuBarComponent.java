@@ -53,7 +53,6 @@ public class MenuBarComponent {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
                     SudokuModel model = SudokuFileIO.deSerializeFromFile(file); // Ensure this method handles exceptions internally
-                    gridview.newModel(model);
                     gridview.getController().setModel(model);
                     gridview.updateViewModel();
                 } else {
@@ -74,10 +73,10 @@ public class MenuBarComponent {
                 File file = fileChooser.getSelectedFile();
                 try {
                     // Ensure sudokuModel is not null before attempting to save
-                    if (gridview.getModel() != null) {
+                    if (gridview.getController().getModel() != null) {
                         // Make sure to save in the "savedgames" directory
                         File saveFile = new File("./savedgames/" + file.getName());
-                        SudokuFileIO.serializeToFile(saveFile, gridview.getModel());
+                        SudokuFileIO.serializeToFile(saveFile, gridview.getController().getModel());
                     } else {
                         System.out.println("No Sudoku model to save.");
                     }
@@ -99,7 +98,7 @@ public class MenuBarComponent {
         printArray.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                gridview.getModel().printArray();
+                gridview.getController().getModel().printArray();
             }
         });
 
@@ -120,7 +119,6 @@ public class MenuBarComponent {
             public void handle(ActionEvent event) {
                 // Define what should happen when "New Easy game" is selected
                 SudokuModel model = gridview.getController().createNewEasyModel();
-                gridview.newModel(model);
                 gridview.getController().setModel(model);
                 gridview.updateViewModel();
                 System.out.println("New Easy Game menu item selected");
@@ -131,7 +129,6 @@ public class MenuBarComponent {
             public void handle(ActionEvent event) {
                 // Define what should happen when "New Medium game" is selected
                 SudokuModel model = gridview.getController().createNewMediumModel();
-                gridview.newModel(model);
                 gridview.getController().setModel(model);
                 gridview.updateViewModel();
                 System.out.println("New Medium Game menu item selected");
@@ -142,7 +139,6 @@ public class MenuBarComponent {
             public void handle(ActionEvent event) {
                 // Define what should happen when "New Hard game" is selected
                 SudokuModel model = gridview.getController().createNewHardModel();
-                gridview.newModel(model);
                 gridview.getController().setModel(model);
                 gridview.updateViewModel();
                 System.out.println("New Hard Game menu item selected");

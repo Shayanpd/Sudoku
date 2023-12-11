@@ -23,7 +23,6 @@ public class Gridview {
     private Label[][] numberTiles; // the tiles/squares to show in the ui grid
     private TilePane numberPane;
     private SudokuController controller;
-    private SudokuModel sudokuModel;
 
     
     /**
@@ -32,7 +31,6 @@ public class Gridview {
      * @param sudokuModel The Sudoku model this view will represent.
      */
     public Gridview(SudokuModel sudokuModel) {
-        this.sudokuModel = sudokuModel;
         numberTiles = new Label[GRID_SIZE][GRID_SIZE];
         controller = new SudokuController(sudokuModel, this);
         try {
@@ -56,12 +54,12 @@ public class Gridview {
         if(value >= 1 && value <= 9 ){
 
             numberTiles[row][col].setText(String.valueOf(value));
-            if(sudokuModel.getTile(row, col).isEditable() && sudokuModel.getTile(row, col).isCorrectValue()){
+            if(controller.getModel().getTile(row, col).isEditable() && controller.getModel().getTile(row, col).isCorrectValue()){
 
                 String existingStyle = numberTiles[row][col].getStyle();
                 numberTiles[row][col].setStyle(existingStyle + "-fx-text-fill: blue;");
             }
-            else if (sudokuModel.getTile(row, col).isEditable() && !sudokuModel.getTile(row, col).isCorrectValue()) {
+            else if (controller.getModel().getTile(row, col).isEditable() && !controller.getModel().getTile(row, col).isCorrectValue()) {
                 String existingStyle = numberTiles[row][col].getStyle();
                 numberTiles[row][col].setStyle(existingStyle + "-fx-text-fill: red;");
             }
@@ -78,7 +76,7 @@ public class Gridview {
      * @param col The column of the tile to clear.
      */
     public void clearTile(int row, int col) {
-        sudokuModel.getTile(row, col).clearValue();
+        controller.getModel().getTile(row, col).clearValue();
         numberTiles[row][col].setText("");
         String existingStyle = numberTiles[row][col].getStyle();
         numberTiles[row][col].setStyle(existingStyle + "-fx-text-fill: black;");
@@ -185,27 +183,6 @@ public class Gridview {
     }
 
     /**
-     * Gets the current Sudoku model associated with this view.
-     *
-     * @return The current SudokuModel.
-     */
-    public SudokuModel getModel()
-    {
-        return this.sudokuModel;
-    }
-
-    /**
-     * Sets a new model for the view and updates the view accordingly.
-     *
-     * @param sudokuModel The new Sudoku model to set.
-     */
-    public void newModel(SudokuModel sudokuModel)
-    {
-        this.sudokuModel = sudokuModel;
-        colorReset();
-        updateViewModel();
-    }
-    /**
      * Resets the color of all tiles in the grid to black.
      */
     public void colorReset()
@@ -223,10 +200,11 @@ public class Gridview {
      * Updates the view to reflect the current state of the Sudoku model.
      */
     public void updateViewModel() {
+        colorReset();
         try {
             for (int row = 0; row < SudokuUtilities.GRID_SIZE; row++) {
                 for (int col = 0; col < SudokuUtilities.GRID_SIZE; col++) {
-                    updateGridTile(row, col, sudokuModel.getTile(row, col).getValue());
+                    updateGridTile(row, col, controller.getModel().getTile(row, col).getValue());
                 }
             }
         } catch (Exception e) {
