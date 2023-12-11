@@ -66,32 +66,26 @@ public class MenuBarComponent {
         });
 
 
-        saveGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Save menu item selected");
+        saveGameMenuItem.setOnAction(event -> {
+            System.out.println("Save menu item selected");
 
-                int response = fileChooser.showSaveDialog(null); // Show the save dialog
-
-                if (response == JFileChooser.APPROVE_OPTION) {
-                    File file = fileChooser.getSelectedFile(); // Get the selected file
-                    try {
-                        // Ensure sudokuModel is not null before attempting to save
-                        if (gridview.getModel() != null) {
-                            SudokuFileIO.serializeToFile(file, gridview.getModel());
-                            // Optionally show a success message
-                        } else {
-                            // Handle the case where sudokuModel is null
-                            System.out.println("No Sudoku model to save.");
-                            // Optionally show an error message to the user
-                        }
-                    } catch (Exception e) { // Catch a more specific exception if possible
-                        System.out.println("Error occurred while saving the file: " + e.getMessage());
-                        // Optionally show an error message to the user
+            int response = fileChooser.showSaveDialog(null); // Show the save dialog
+            if (response == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                try {
+                    // Ensure sudokuModel is not null before attempting to save
+                    if (gridview.getModel() != null) {
+                        // Make sure to save in the "savedgames" directory
+                        File saveFile = new File("./savedgames/" + file.getName());
+                        SudokuFileIO.serializeToFile(saveFile, gridview.getModel());
+                    } else {
+                        System.out.println("No Sudoku model to save.");
                     }
-                } else {
-                    System.out.println("Save operation cancelled.");
+                } catch (Exception e) {
+                    System.out.println("Error occurred while saving the file: " + e.getMessage());
                 }
+            } else {
+                System.out.println("Save operation cancelled.");
             }
         });
 
