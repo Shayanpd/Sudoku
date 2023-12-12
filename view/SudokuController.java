@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,6 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.SudokuModel;
 import model.Tile;
+import util.SudokuFileIO;
 import util.SudokuUtilities;
 import view.Gridview;
 
@@ -169,7 +171,40 @@ public class SudokuController {
     {
         return sudokuModel;
     }
+    public void loadGame() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Sudoku Game File");
+        File file = fileChooser.showOpenDialog(null); // Adjust as necessary for JavaFX stage
+        if (file != null) {
+            try {
+                // Deserialize the Sudoku model from the file
+                SudokuModel model = SudokuFileIO.deSerializeFromFile(file);
+                setModel(model);
+                gridview.updateViewModel();
+            } catch (Exception e) {
+                // Handle exceptions
+                System.out.println("Error occurred while loading the game: " + e.getMessage());
+            }
+        }
+    }
+    
 
+/**
+ * Saves the current game to a file.
+ */
+public void saveGame() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Save Sudoku Game File");
+    File file = fileChooser.showSaveDialog(null); // This requires a JavaFX stage, adjust as necessary
+    if (file != null) {
+        try {
+            SudokuFileIO.serializeToFile(file, sudokuModel);
+        } catch (Exception e) {
+            // Handle exceptions
+            System.out.println("Error occurred while saving the game: " + e.getMessage());
+        }
+    }
+}
     /**
      * Sets the Sudoku model to a new model.
      * 

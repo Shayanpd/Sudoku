@@ -48,45 +48,13 @@ public class MenuBarComponent {
         MenuItem exitMenuItem = new MenuItem("Exit");
         MenuItem printArray = new MenuItem("Print");
 
+
         loadGameMenuItem.setOnAction(event -> {
-            try {
-                int result = fileChooser.showOpenDialog(null);
-                if (result == JFileChooser.APPROVE_OPTION) {
-                    File file = fileChooser.getSelectedFile();
-                    SudokuModel model = SudokuFileIO.deSerializeFromFile(file); // Ensure this method handles exceptions internally
-                    gridview.getController().setModel(model);
-                    gridview.updateViewModel();
-                } else {
-                    System.out.println("File selection cancelled.");
-                }
-            } catch (Exception e) {
-                System.out.println("Error occurred while loading the game: " + e.getMessage());
-                // Show an error dialog to the user
-            }
+            gridview.getController().loadGame();
         });
-
-
+        
         saveGameMenuItem.setOnAction(event -> {
-            System.out.println("Save menu item selected");
-
-            int response = fileChooser.showSaveDialog(null); // Show the save dialog
-            if (response == JFileChooser.APPROVE_OPTION) {
-                File file = fileChooser.getSelectedFile();
-                try {
-                    // Ensure sudokuModel is not null before attempting to save
-                    if (gridview.getController().getModel() != null) {
-                        // Make sure to save in the "savedgames" directory
-                        File saveFile = new File("./savedgames/" + file.getName());
-                        SudokuFileIO.serializeToFile(saveFile, gridview.getController().getModel());
-                    } else {
-                        System.out.println("No Sudoku model to save.");
-                    }
-                } catch (Exception e) {
-                    System.out.println("Error occurred while saving the file: " + e.getMessage());
-                }
-            } else {
-                System.out.println("Save operation cancelled.");
-            }
+            gridview.getController().saveGame();
         });
 
 
