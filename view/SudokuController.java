@@ -102,30 +102,12 @@ public class SudokuController {
     }
 
     /**
-     * Creates a new Sudoku model with an easy difficulty level.
+     * Creates a new Sudoku model with the given difficulty level.
      * 
-     * @return A new SudokuModel with easy difficulty.
+     * @return A new SudokuModel with the given difficulty.
      */
-    public SudokuModel createNewEasyModel(){
-        return new SudokuModel(SudokuUtilities.SudokuLevel.EASY);
-    }
-
-    /**
-     * Creates a new Sudoku model with a medium difficulty level.
-     * 
-     * @return A new SudokuModel with medium difficulty.
-     */
-    public SudokuModel createNewMediumModel(){
-        return new SudokuModel(SudokuUtilities.SudokuLevel.MEDIUM);
-    }
-
-    /**
-     * Creates a new Sudoku model with a hard difficulty level.
-     * 
-     * @return A new SudokuModel with hard difficulty.
-     */
-    public SudokuModel createNewHardModel(){
-        return new SudokuModel(SudokuUtilities.SudokuLevel.HARD);
+    public SudokuModel createNewModel(SudokuUtilities.SudokuLevel level){
+        return new SudokuModel(level);
     }
 
     /**
@@ -143,9 +125,10 @@ public class SudokuController {
             int correctValue = hint[2];
     
             sudokuModel.setTileValue(row, col, correctValue);
-            gridview.updateGridTile(row, col, correctValue); // Ensure this method correctly updates the UI
+            sudokuModel.getTile(row,col).setCorrectValue(true);
+            gridview.updateGridTile(row, col, correctValue);
         } else {
-            // Optionally, handle the case where no hint is available
+            gameOverScreen();
         }
     }
     

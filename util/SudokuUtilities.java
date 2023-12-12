@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class SudokuUtilities {
 
-    public enum SudokuLevel {EASY, EASY_REVERSE, MEDIUM, MEDIUM_REVERSE, HARD, HARD_REVERSE}
+    public enum SudokuLevel {EASY, MEDIUM, HARD}
 
     public static final int GRID_SIZE = 9;
     public static final int SECTIONS_PER_ROW = 3;
@@ -32,10 +32,10 @@ public class SudokuUtilities {
 
     private static String getRepresentationString(SudokuLevel level) {
         return switch (level) {
-            case EASY, EASY_REVERSE -> easy;
-            case MEDIUM, MEDIUM_REVERSE -> medium;
-            case HARD, HARD_REVERSE -> hard;
-            // Add more cases if necessary
+            case EASY -> easy;
+            case MEDIUM -> medium;
+            case HARD -> hard;
+            default -> throw new IllegalArgumentException("failed to generate difficulty");
         };
     }
 
@@ -125,26 +125,6 @@ public class SudokuUtilities {
                     "239675418" +
                     "654821739" +
                     "178493265";
-    private static final String easyReverse =
-            "000941070" +
-                    "040000051" +
-                    "010002000" +
-                    "007569004" +
-                    "104000500" +
-                    "300400000" +
-                    "039000108" +
-                    "650800030" +
-                    "000103260" +
-                    "583941672" +
-                    "742386951" +
-                    "916752483" +
-                    "827569314" +
-                    "164238597" +
-                    "395417826" +
-                    "239675148" +
-                    "651824739" +
-                    "478193265";
-
 
     private static final String medium =
             "300000010" +
@@ -165,25 +145,6 @@ public class SudokuUtilities {
                     "985617324" +
                     "267394158" +
                     "143825697";
-    private static final String mediumReverse =
-            "500000010" +
-                    "000030906" +
-                    "030401200" +
-                    "050000080" +
-                    "002069400" +
-                    "000000002" +
-                    "900610000" +
-                    "200500038" +
-                    "100800090" +
-                    "524976813" +
-                    "718235946" +
-                    "639481275" +
-                    "356142789" +
-                    "872369451" +
-                    "491758362" +
-                    "983617524" +
-                    "267594138" +
-                    "145823697";
 
     private static final String hard =
             "030600000" +
@@ -204,23 +165,5 @@ public class SudokuUtilities {
                     "693452781" +
                     "154873269" +
                     "728196453";
-    private static final String hardReverse =
-            "060300000" +
-                    "000010070" +
-                    "080000000" +
-                    "000020000" +
-                    "640000800" +
-                    "500060094" +
-                    "000400000" +
-                    "150800200" +
-                    "700003050" +
-                    "961387542" +
-                    "435219678" +
-                    "287645913" +
-                    "873924165" +
-                    "649531827" +
-                    "512768394" +
-                    "396452781" +
-                    "154876239" +
-                    "728193456";
+
 }

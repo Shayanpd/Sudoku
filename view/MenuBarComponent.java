@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import util.SudokuFileIO;
+import util.SudokuUtilities;
 
 import javax.swing.*;
 import java.io.File;
@@ -118,7 +119,7 @@ public class MenuBarComponent {
             @Override
             public void handle(ActionEvent event) {
                 // Define what should happen when "New Easy game" is selected
-                SudokuModel model = gridview.getController().createNewEasyModel();
+                SudokuModel model = gridview.getController().createNewModel(SudokuUtilities.SudokuLevel.EASY);
                 gridview.getController().setModel(model);
                 gridview.updateViewModel();
                 System.out.println("New Easy Game menu item selected");
@@ -128,7 +129,7 @@ public class MenuBarComponent {
             @Override
             public void handle(ActionEvent event) {
                 // Define what should happen when "New Medium game" is selected
-                SudokuModel model = gridview.getController().createNewMediumModel();
+                SudokuModel model = gridview.getController().createNewModel(SudokuUtilities.SudokuLevel.MEDIUM);
                 gridview.getController().setModel(model);
                 gridview.updateViewModel();
                 System.out.println("New Medium Game menu item selected");
@@ -138,7 +139,7 @@ public class MenuBarComponent {
             @Override
             public void handle(ActionEvent event) {
                 // Define what should happen when "New Hard game" is selected
-                SudokuModel model = gridview.getController().createNewHardModel();
+                SudokuModel model = gridview.getController().createNewModel(SudokuUtilities.SudokuLevel.HARD);
                 gridview.getController().setModel(model);
                 gridview.updateViewModel();
                 System.out.println("New Hard Game menu item selected");
