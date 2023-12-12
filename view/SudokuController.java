@@ -50,30 +50,22 @@ public class SudokuController {
      */
     public void handleTileClick(int row, int col) {
         if (sudokuModel == null || gridview == null) {
-            System.out.println("SudokuModel or Gridview is null in handleTileClick");
-            return; // Or throw an exception
+            throw new RuntimeException("SudokuModel or Gridview is null in handleTileClick");
         }
-        // Existing logic...
-        
-        // Implement this method to handle tile clicks.
-        // You can update the model and view here.
+    
         if (selectedNumber >= 1 && selectedNumber <= 9 && sudokuModel.getTile(row, col).isEditable()) {
             sudokuModel.setTileValue(row, col, selectedNumber);
             sudokuModel.getTile(row, col).setCorrectValue(true);
             gridview.updateGridTile(row, col, selectedNumber);
-                //update sudokumodel
-        } 
-        else if(selectedNumber == 0 && sudokuModel.getTile(row, col).isEditable())
-        {
+        } else if (selectedNumber == 0 && sudokuModel.getTile(row, col).isEditable()) {
             sudokuModel.clearTile(row, col);
-            gridview.clearTile(row, col); // Implement this method in Gridview
+            gridview.clearTile(row, col);
+        } else {
+            throw new RuntimeException("Invalid tile selection or tile not editable");
         }
-        else
-        {
-            //throw exception error
-        }
-        System.out.println("Set" + selectedNumber + " at Row: " + row + " Column: " + col);
+        System.out.println("Set " + selectedNumber + " at Row: " + row + " Column: " + col);
     }
+    
     
     /**
      * Displays a game over screen when the puzzle is solved.
