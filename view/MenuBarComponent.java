@@ -25,9 +25,7 @@ import java.io.File;
  */
 public class MenuBarComponent {
     private MenuBar menuBar;
-    private Gridview gridview;
     protected String path;
-    private JFileChooser fileChooser = new JFileChooser();
 
     /**
      * Constructor for MenuBarComponent.
@@ -36,7 +34,6 @@ public class MenuBarComponent {
      */
     public MenuBarComponent(Gridview gridview) {
         menuBar = new MenuBar();
-        this.gridview = gridview;
 
 
         // Create the "File" menu
