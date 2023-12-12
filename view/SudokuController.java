@@ -171,6 +171,10 @@ public class SudokuController {
     {
         return sudokuModel;
     }
+
+/**
+ * Loads in a saved sudoku game.
+ */
     public void loadGame() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Sudoku Game File");
