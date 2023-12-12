@@ -4,6 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -69,27 +72,6 @@ public class SudokuController {
         }
         System.out.println("Set" + selectedNumber + " at Row: " + row + " Column: " + col);
     }
-    /**
-     * Compares the current grid to the solution and updates the correctness of each tile.
-     */
-    public void compareCurrentGridToSolutionValues(){
-        Tile[][] solutionValues = sudokuModel.getSolutionValues();
-        Tile[][] currentGrid = sudokuModel.getGrid();
-        int gameover = 0;
-        for (int row = 0; row < GRID_SIZE; row++){
-            for (int col = 0; col < GRID_SIZE; col++){
-                if (currentGrid[row][col].getValue() != 0 && currentGrid[row][col].getValue() != solutionValues[row][col].getValue()) {
-                    currentGrid[row][col].setCorrectValue(false);
-                }
-                else 
-                {
-                    currentGrid[row][col].setCorrectValue(true);
-                    if (currentGrid[row][col].getValue() != 0) gameover++;
-                }
-            }
-        }
-        if (gameover == GRID_SIZE * GRID_SIZE) gameOverScreen();
-    }
     
     /**
      * Displays a game over screen when the puzzle is solved.
@@ -125,9 +107,7 @@ public class SudokuController {
      * @return A new SudokuModel with easy difficulty.
      */
     public SudokuModel createNewEasyModel(){
-        int rand = (int)(Math.random() * 2) + 1;
-        if (rand == 1) return new SudokuModel(SudokuUtilities.SudokuLevel.EASY);
-        else return new SudokuModel(SudokuUtilities.SudokuLevel.EASY_REVERSE);
+        return new SudokuModel(SudokuUtilities.SudokuLevel.EASY);
     }
 
     /**
@@ -136,9 +116,7 @@ public class SudokuController {
      * @return A new SudokuModel with medium difficulty.
      */
     public SudokuModel createNewMediumModel(){
-        int rand = (int)(Math.random() * 2) + 1;
-        if (rand == 1) return new SudokuModel(SudokuUtilities.SudokuLevel.MEDIUM);
-        else return new SudokuModel(SudokuUtilities.SudokuLevel.MEDIUM_REVERSE);
+        return new SudokuModel(SudokuUtilities.SudokuLevel.MEDIUM);
     }
 
     /**
@@ -147,43 +125,58 @@ public class SudokuController {
      * @return A new SudokuModel with hard difficulty.
      */
     public SudokuModel createNewHardModel(){
-        int rand = (int)(Math.random() * 2) + 1;
-        if (rand == 1) return new SudokuModel(SudokuUtilities.SudokuLevel.HARD);
-        else return new SudokuModel(SudokuUtilities.SudokuLevel.HARD_REVERSE);
+        return new SudokuModel(SudokuUtilities.SudokuLevel.HARD);
     }
 
     /**
      * Provides a hint by setting one incorrect tile to the correct value.
      */
-    public void handleHint()
-    {
-        Tile[][] solutionValues = sudokuModel.getSolutionValues();
-        Tile[][] currentGrid = sudokuModel.getGrid();
-        int[][] hintGrid;
-        int GRID_SIZE_SQUARED = GRID_SIZE * GRID_SIZE;
-        hintGrid = new int[GRID_SIZE_SQUARED][3];
-        int counter = 0;
-        for (int row = 0; row < GRID_SIZE; row++){
-            for (int col = 0; col < GRID_SIZE; col++){
-                if (solutionValues[row][col].getValue() != currentGrid[row][col].getValue() && currentGrid[row][col].isEditable()){
-                    hintGrid[counter][0] = solutionValues[row][col].getValue();
-                    hintGrid[counter][1] = row;
-                    hintGrid[counter][2] = col;
-                    counter++;
-                }
-
-            }
-        }
-        if(counter != 0)
-        {
-            Random rand = new Random();
-            int randomNum = rand.nextInt(counter);
-            sudokuModel.setTileValue(hintGrid[randomNum][1], hintGrid[randomNum][2], hintGrid[randomNum][0]);
-            sudokuModel.getTile(hintGrid[randomNum][1], hintGrid[randomNum][2]).setCorrectValue(true);
-            gridview.updateGridTile(hintGrid[randomNum][1], hintGrid[randomNum][2], hintGrid[randomNum][0]);
+    
+    /**
+     * Provides a hint by setting one incorrect tile to the correct value.
+     */
+    public void handleHint() {
+        int[] hint = sudokuModel.provideHint();
+        if (hint != null) {
+            int row = hint[0];
+            int col = hint[1];
+            int correctValue = hint[2];
+    
+            sudokuModel.setTileValue(row, col, correctValue);
+            gridview.updateGridTile(row, col, correctValue); // Ensure this method correctly updates the UI
+        } else {
+            // Optionally, handle the case where no hint is available
         }
     }
+    
+    
 
+    /**
+     * Compares the current grid to the solution and updates the correctness of each tile.
+     */
+    public void compareCurrentGridToSolutionValues() {
+        Tile[][] solutionValues = sudokuModel.getSolutionValues();
+        Tile[][] currentGrid = sudokuModel.getGrid();
+        int isSolved = 0;
+
+        for (int row = 0; row < GRID_SIZE; row++) {
+            for (int col = 0; col < GRID_SIZE; col++) {
+                if (currentGrid[row][col].getValue() != solutionValues[row][col].getValue() && currentGrid[row][col].getValue() != 0) {
+                    currentGrid[row][col].setCorrectValue(false);
+                } else {
+                    if (currentGrid[row][col].getValue() != 0) 
+                    {
+                        currentGrid[row][col].setCorrectValue(true);
+                        isSolved++;
+                    }
+                }
+            }
+        }
+
+        if (isSolved == GRID_SIZE * GRID_SIZE) {
+            gameOverScreen();
+        }
+    }
     /**
      * Gets the current Sudoku model.
      * 

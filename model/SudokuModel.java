@@ -1,17 +1,21 @@
 package model;
 import util.SudokuUtilities;
+import util.SudokuUtilities.SudokuLevel;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import static util.SudokuUtilities.GRID_SIZE;
-import static util.SudokuUtilities.generateSudokuMatrix;
-import java.io.Serializable;
-import util.SudokuUtilities.SudokuLevel;
 
 /**
  * Represents the model for a Sudoku game, including the game grid and current state.
  */
-public class SudokuModel implements Serializable{
+public class SudokuModel implements Serializable {
     private static int selectedNumber;
     private Tile[][] grid;
+    private Tile[][] solutionGrid; // Separate grid to store the solution
     private SudokuLevel level;
 
     /**
@@ -20,10 +24,65 @@ public class SudokuModel implements Serializable{
      * @param level The difficulty level of the Sudoku game.
      */
     public SudokuModel(SudokuUtilities.SudokuLevel level) {
-        // Initialize the grid and create Tile objects
         selectedNumber = 0;
         setLevel(level);
-        this.grid = fillGridFromMatrix(0);
+        initializeGrids();
+    }
+
+    /**
+     * Initializes the Sudoku grid and solution grid based on a generated Sudoku matrix.
+     */
+    private void initializeGrids() {
+        int[][][] sudokuMatrix = SudokuUtilities.generateSudokuMatrix(level);
+
+        grid = new Tile[GRID_SIZE][GRID_SIZE];
+        solutionGrid = new Tile[GRID_SIZE][GRID_SIZE];
+
+        for (int row = 0; row < GRID_SIZE; row++) {
+            for (int col = 0; col < GRID_SIZE; col++) {
+                int initialValue = sudokuMatrix[row][col][0];
+                int solutionValue = sudokuMatrix[row][col][1];
+                boolean isEditable = initialValue == 0;
+
+                grid[row][col] = new Tile(initialValue, isEditable);
+                solutionGrid[row][col] = new Tile(solutionValue, false); // Non-editable solution tiles
+            }
+        }
+    }
+
+    /**
+     * Retrieves the solution values for the Sudoku grid.
+     *
+     * @return A 2D array of Tiles representing the solution grid.
+     */
+    public Tile[][] getSolutionValues() {
+        return solutionGrid;
+    }
+
+    /**
+     * Provides a hint by finding an empty or incorrect tile and returning its correct value.
+     * 
+     * @return An array containing the row index, column index, and correct value of the tile,
+     *         or null if no hint is available.
+     */
+    public int[] provideHint() {
+        List<int[]> possibleHints = new ArrayList<>();
+
+        for (int row = 0; row < GRID_SIZE; row++) {
+            for (int col = 0; col < GRID_SIZE; col++) {
+                Tile currentTile = grid[row][col];
+                if (currentTile.isEditable() && currentTile.getValue() != solutionGrid[row][col].getValue()) {
+                    possibleHints.add(new int[] { row, col, solutionGrid[row][col].getValue() });
+                }
+            }
+        }
+
+        if (possibleHints.isEmpty()) {
+            return null; // No hint available
+        }
+
+        Random random = new Random();
+        return possibleHints.get(random.nextInt(possibleHints.size()));
     }
 
     /**
@@ -32,35 +91,7 @@ public class SudokuModel implements Serializable{
      * @param mode The mode for generating the Sudoku matrix.
      * @return A 2D array of Tiles representing the Sudoku grid.
      */
-    private Tile[][] fillGridFromMatrix(int mode){
-        Tile[][] temp = new Tile[GRID_SIZE][GRID_SIZE];
 
-        int[][][] sudokuMatrix = generateSudokuMatrix(getLevel());
-
-        for (int row = 0; row < GRID_SIZE; row++) {
-            for (int col = 0; col < GRID_SIZE; col++) {
-                int initialValue = sudokuMatrix[row][col][mode]; // Get the initial value from the matrix
-                boolean isEditable = initialValue == 0; // Determine if the tile is editable based on its initial value
-
-                temp[row][col] = new Tile();
-                temp[row][col].setValue(initialValue);
-                temp[row][col].setEditable(isEditable);
-            }
-        }
-
-        return temp;
-    }
-
-    /**
-     * Retrieves the solution values for the Sudoku grid.
-     *
-     * @return A 2D array of Tiles representing the solution grid.
-     */
-    public Tile[][] getSolutionValues(){
-        Tile[][] solutionGrid = fillGridFromMatrix(1);;
-
-        return solutionGrid;
-    }
     /**
      * Retrieves the current state of the Sudoku grid.
      *

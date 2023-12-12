@@ -20,6 +20,11 @@ public class Tile implements Serializable {
         this.isEditable = true;
     }
 
+    public Tile(int initialValue, boolean isEditable) {
+        this.currentValue = initialValue;
+        this.isEditable = isEditable;
+    }
+
     /**
      * Checks if the current value of the tile is correct.
      * 

@@ -1,5 +1,10 @@
 package util;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SudokuUtilities {
 
@@ -20,15 +25,40 @@ public class SudokuUtilities {
      *                                  for characters other than '0'-'9'.
      */
     public static int[][][] generateSudokuMatrix(SudokuLevel level) {
-        String representationString = switch (level) {
-            case EASY -> easy;
-            case EASY_REVERSE -> easyReverse;
-            case MEDIUM_REVERSE -> mediumReverse;
-            case HARD -> hard;
-            case HARD_REVERSE -> hardReverse;
-            default -> medium;
-        };
+        String representationString = getRepresentationString(level);
+        representationString = shuffleSudokuString(representationString);
         return convertStringToIntMatrix(representationString);
+    }
+
+    private static String getRepresentationString(SudokuLevel level) {
+        return switch (level) {
+            case EASY, EASY_REVERSE -> easy;
+            case MEDIUM, MEDIUM_REVERSE -> medium;
+            case HARD, HARD_REVERSE -> hard;
+            // Add more cases if necessary
+        };
+    }
+
+    private static String shuffleSudokuString(String input) {
+        List<Character> numbers = Arrays.asList('1', '2', '3', '4', '5', '6', '7', '8', '9');
+        Collections.shuffle(numbers);
+
+        Map<Character, Character> mapping = new HashMap<>();
+        for (int i = 0; i < numbers.size(); i++) {
+            mapping.put(Character.forDigit(i + 1, 10), numbers.get(i));
+        }
+
+        StringBuilder shuffledString = new StringBuilder();
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if (c >= '1' && c <= '9') {
+                shuffledString.append(mapping.get(c));
+            } else {
+                shuffledString.append(c);
+            }
+        }
+
+        return shuffledString.toString();
     }
 
     /**
